@@ -14,6 +14,7 @@ CREATE TABLE users
 	`sex` tinyint NOT NULL comment '性别',
 	`nickname` VARCHAR(128) NULL comment '昵称',
 	`password` VARCHAR(128) NOT NULL comment '密码',
+	`is_admin` TINYINT NOT NULL DEFAULT 0 comment '是否管理员',
 	`email` VARCHAR(128) NULL comment '邮箱',
 	`signature` VARCHAR(256) NULL comment '签名',
 	`login_time` INTEGER not null comment '最近登录时间',
@@ -38,7 +39,7 @@ CREATE TABLE post
 	`create_time` INTEGER not null comment '创建时间',
 	`author_id` INTEGER NOT NULL comment '作者',
 	`is_delete` TINYINT NOT NULL DEFAULT 0 comment '是否删除',
-	`p_id` INTEGER NOT NULL comment '关联课程',
+	`p_id` INTEGER NOT NULL comment '关联版块',
 	CONSTRAINT `post_ibfk_1` FOREIGN KEY (author_id)
 		REFERENCES users(`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT `post_ibfk_2` FOREIGN KEY (`p_id`)
