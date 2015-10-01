@@ -134,6 +134,9 @@ public class User {
 	 */
 	public LoginInfo login(String username, String password){
 		LoginInfo res = new LoginInfo();
+		res.setIsAdmin(true);
+		res.setIsSuccess(true);
+		res.setUserID(1);
 		return res;
 	}
 	
@@ -146,7 +149,7 @@ public class User {
 	 * @return
 	 */
 	public Integer register(User newUser){
-		return -1;
+		return 1;
 	}
 	
 	/**
@@ -157,6 +160,13 @@ public class User {
 	 */
 	public User getUserInfo(int userID){
 		User user = new User();
+		user.email = "2436@qq.com";
+		user.isAdmin = true;
+		user.userID = 1;
+		user.loginTime = 12345678;
+		user.sex = true;
+		user.signature = "hehe";
+		user.username = "ljc";
 		return user;
 	}
 	

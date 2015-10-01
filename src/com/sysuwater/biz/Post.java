@@ -114,6 +114,20 @@ public class Post {
 	public Post[] getPostList(int pid){
 		
 		Post[] post = new Post[2];
+		post[0].authorID = 1;
+		post[0].authorName = "user1";
+		post[0].createTime = 12345678;
+		post[0].pid = 1;
+		post[0].postID = 1;
+		post[0].title = "first post";
+		
+		post[1].authorID = 2;
+		post[1].authorName = "user2";
+		post[1].createTime = 12345678;
+		post[1].pid = 2;
+		post[1].postID = 2;
+		post[1].title = "second post";
+		
 		return post;
 	}
 	
@@ -125,6 +139,14 @@ public class Post {
 	 */
 	public Post getPostByID(int postID){
 		Post post = new Post();
+		post.authorID = 1;
+		post.authorName = "user1";
+		post.createTime = 12345678;
+		post.pid = 1;
+		post.postID = 1;
+		post.title = "first post";
+		post.content = "just a test file";
+		
 		return post;
 	}
 	

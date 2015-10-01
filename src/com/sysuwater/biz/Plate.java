@@ -52,6 +52,13 @@ public class Plate {
 	 */
 	public Plate[] getPlateList(){
 		Plate[] plates = new Plate[2];
+		plates[0].pid = 1;
+		plates[0].pname = "学术探讨";
+		plates[0].introduction = "这里是学术的失乐园";
+		
+		plates[1].pid = 2;
+		plates[0].pname = "八卦天地";
+		plates[1].introduction = "哇咔咔";
 		return plates;
 	}
 	

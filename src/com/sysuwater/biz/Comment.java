@@ -96,6 +96,12 @@ public class Comment {
 	 */
 	public Comment[] getCommentsByPostID(int postID){
 		Comment[] comments = new Comment[1];
+		comments[0].authorID = 1;
+		comments[0].authorName = "ljc";
+		comments[0].comID = 1;
+		comments[0].content = "leave";
+		comments[0].createTime = 12345678;
+		comments[0].postID = 1;
 		return comments;
 	}
 	
