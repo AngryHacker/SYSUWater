@@ -16,7 +16,6 @@ CREATE TABLE users
 	`password` VARCHAR(128) NOT NULL comment '密码',
 	`email` VARCHAR(128) NULL comment '邮箱',
 	`signature` VARCHAR(256) NULL comment '签名',
-	`score` INTEGER not NULL comment '用户积分',
 	`login_time` INTEGER not null comment '最近登录时间',
 	unique key(`username`),
 	primary key (`user_id`)
