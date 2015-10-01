@@ -17,6 +17,19 @@ public class Plate {
 	 */
 	private String pname;
 	
+	/**
+	 * 版块介绍
+	 */
+	private String introduction;
+	
+	public String getIntroduction() {
+		return introduction;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
 	public int getPid(){
 		return pid;
 	}
@@ -31,6 +44,15 @@ public class Plate {
 	
 	public void setPname(String pname){
 		this.pname = pname;
+	}
+	
+	/**
+	 * 获取所有版块
+	 * @return
+	 */
+	public Plate[] getPlateList(){
+		Plate[] plates = new Plate[2];
+		return plates;
 	}
 	
 	/**

@@ -27,6 +27,7 @@ CREATE TABLE `plate`
 (
 	`p_id` INTEGER NOT NULL AUTO_INCREMENT comment 'Ö÷¼ü',
     `pname` varchar(32) not null comment '°æ¿éÃû³Æ',
+    `introduction` varchar(512) null comment '°æ¿é½éÉÜ',
 	primary key (`p_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='ÂÛÌ³°æ¿é±í';
 
