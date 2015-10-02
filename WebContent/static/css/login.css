@@ -1,0 +1,181 @@
+@CHARSET "UTF-8";
+
+.left_block{
+	height:400px;
+	background: url(http://qzonestyle.gtimg.cn/py-v4/img/login/bg-login.png?max_age=19830211&d=20130116161938) repeat-x 0 0 #fff;
+}
+
+.login, .login_no_qlogin {
+  border-radius: 4px;
+  border: 0;
+  background-color: #fff;
+  margin:0 auto;
+  margin-top:50px;
+  width:400px;
+  position:realative;
+}
+
+.login_no_qlogin .header {
+  border: 0;
+  height: 40px;
+  border-bottom: 1px solid #e2e2e2;
+  position: relative;
+  font-family: "微软雅黑";
+}
+
+.web_login .tips {
+  height: 50px;
+  width: 270px;
+  position: relative;
+  margin: 0 auto;
+  z-index: 11;
+}
+
+.login_no_qlogin .header .switch {
+  height: 40px;
+  position: absolute;
+  left: 20px;
+  top: 10px;
+  font-size: 22px;
+}
+
+.login_no_qlogin .header .switch .switch_btn_focus {
+  color: #333;
+  cursor: default;
+  text-decoration: none;
+  display: inline-block;
+  height: 30px;
+  line-height: 30px;
+}
+
+.login_tips {
+  position: absolute;
+  height: 50px;
+  z-index: 100;
+}
+.web_qr_login {
+  position: relative;
+  height: 265px;
+  overflow: hidden;
+}
+
+.web_qr_login .web_qr_login_show {
+  position: absolute;
+  top: 0;
+}
+
+.web_login {
+  width: 370px;
+  position: relative;
+  padding-bottom: 65px;
+}
+
+.web_login .login_form {
+  width: 272px;
+  margin: 0 auto;
+}
+
+.web_login .uinArea {
+  height: 55px;
+  position: relative;
+  z-index: 10;
+}
+
+.web_login .pwdArea {
+  height: 55px;
+  position: relative;
+  z-index: 3;
+}
+
+.web_login .submit {
+  position: relative;
+  height: 40px;
+}
+
+.web_login .input_tips, .web_login .input_tips_focus {
+  position: absolute;
+  top: 13px;
+  left: 13px;
+  font-size: 14px;
+  line-height: 16px;
+  color: #aaa;
+  cursor: text;
+}
+
+.web_login .inputOuter {
+  width: 272px;
+  height: 42px;
+  background: url(https://ui.ptlogin2.qq.com/style/11/images/icon_24_c_3.png) no-repeat -1px -1px;
+  _background: url(https://ui.ptlogin2.qq.com/style/11/images/icon_3.png) no-repeat -1px -1px;
+}
+
+.web_login .inputstyle {
+  width: 258px;
+  position: relative;
+  top: 2px;
+  left: 2px;
+  height: 18px;
+  padding: 11px 0 11px 10px;
+  line-height: 18px;
+  border: 0;
+  background: 0;
+  background: url(about:blank)\0;
+  color: #333;
+  font-family: Verdana,Tahoma,Arial;
+  font-size: 16px;
+}
+
+.web_login .submit {
+  position: relative;
+  height: 40px;
+}
+
+.web_login .login_button {
+  position: absolute;
+  left: 0;
+  outline: 0;
+}
+
+.web_login .login_button .btn {
+  width: 115px;
+  height: 35px;
+  line-height: 35px;
+  border: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  background: url(https://ui.ptlogin2.qq.com/style/11/images/icon_24_c_3.png) no-repeat 0 -90px;
+  _background: url(https://ui.ptlogin2.qq.com/style/11/images/icon_3.png) no-repeat 0 -90px;
+}
+
+.login_tips .error_tips {
+  padding: 5px;
+  border: 1px solid #dad699;
+  background: #f9f5c7;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  border-radius: 2px;
+  width: 258px;
+  left: 50px;
+}
+
+.login_tips .error_tips .error_logo {
+  position: absolute;
+  left: 3px;
+  height: 18px;
+  line-height: 18px;
+  width: 18px;
+  background: url(https://ui.ptlogin2.qq.com/style/11/images/icon_24_c_3.png) no-repeat 0 -162px;
+  _background: url(https://ui.ptlogin2.qq.com/style/11/images/icon_3.png) no-repeat 0 -162px;
+}
+
+.login_tips .error_tips .err_m {
+  display: inline-block;
+  padding-left: 20px;
+  line-height: 18px;
+  color: #434343;
+  vertical-align: middle;
+  text-align: left;
+}
