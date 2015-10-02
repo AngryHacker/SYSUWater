@@ -1,15 +1,6 @@
 package com.sysuwater.common;
 
-import java.lang.reflect.Executable;
 import java.sql.*;
-
-import org.apache.naming.java.javaURLContextFactory;
-
-import com.sun.xml.internal.ws.Closeable;
-
-//import com.mysql.jdbc.PreparedStatement;
-
-import jdk.internal.org.objectweb.asm.commons.StaticInitMerger;
 
 public class MySQL
 {
@@ -20,15 +11,20 @@ public class MySQL
 	
 	public final static String DBPort = "3306";
 	
-	public final static String DBUser = "root";
+	public final static String DBUser = "test";
 	
-	public final static String DBPsw = "CNkenio123";
+	public final static String DBPsw = "123456";
 	
 	private static Connection conn = null;
 	
 	private static PreparedStatement pst = null;
 	
 	private static ResultSet ret = null;
+	
+	public Connection getConnection()
+	{
+		return conn;
+	}
 	
 	/**
 	 * 获取新的  MySQL 连接
@@ -66,7 +62,7 @@ public class MySQL
 		}
 	}
 	
-	public int Update( String sql )
+	public int Update( String sql ) throws Exception
 	{
 		try
 		{
@@ -77,11 +73,11 @@ public class MySQL
 		catch( Exception e )
 		{
 			e.printStackTrace();
-			return -1;
+			throw new Exception(e);
 		}
 	}
 	
-	public void closeConnection()
+	public void closeConnection() throws Exception
 	{
 		try
 		{
@@ -93,6 +89,7 @@ public class MySQL
 		catch( Exception e )
 		{
 			e.printStackTrace();
+			throw new Exception(e);
 		}
 	}
 

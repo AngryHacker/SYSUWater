@@ -52,11 +52,17 @@ public class Plate {
 	/**
 	 * 获取所有版块
 	 * @return
+	 * @throws Exception 
 	 */
-	public Plate[] getPlateList()
+	public Plate[] getPlateList() throws Exception
 	{
 		MySQL m_Mysql = new MySQL();
 		m_Mysql.ConnectToMySQL();
+		if( null == m_Mysql.getConnection() )
+		{
+			throw new Exception("连接出错！");
+		}
+		
 		String sql = "select * from plate";
 		try
 		{

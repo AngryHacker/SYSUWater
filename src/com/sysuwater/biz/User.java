@@ -1,11 +1,6 @@
 package com.sysuwater.biz;
-import com.mysql.jdbc.PreparedStatement;
+
 import com.sysuwater.common.*;
-
-import jdk.internal.org.objectweb.asm.commons.StaticInitMerger;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.util.Date;
 
@@ -180,7 +175,7 @@ public class User
 		return res;
 	}
 	
-	public LoginInfo loginTmp( String username, String password )
+	public LoginInfo loginTmp( String username, String password ) throws Exception
 	{
 		LoginInfo res = new LoginInfo();
 		res.setIsSuccess(false);
@@ -188,8 +183,14 @@ public class User
 		{
 			return res;
 		}
+		
 		MySQL m_Mysql = new MySQL();
 		m_Mysql.ConnectToMySQL();
+		if( null == m_Mysql.getConnection() )
+		{
+			throw new Exception("连接出错！");
+		}
+		
 		String sql = "select user_id, is_admin, password from users where username='"+username+"'";
 		try
 		{
@@ -206,12 +207,17 @@ public class User
 					res.setIsAdmin(isAdmin);
 					res.setUserID(id);
 				}
+				long loginTime = new Date().getTime()/1000;
+				sql = "update users set login_time="+loginTime+" where user_id="+id;
+				m_Mysql.Update(sql);
 			}
 		}
 		catch( Exception e )
 		{
 			e.printStackTrace();
-		}	
+			throw new Exception(e);
+		}
+		m_Mysql.closeConnection();
 		return res;
 	}
 	
@@ -227,7 +233,7 @@ public class User
 	{		
 		return 1;
 	}
-	public Integer registerTmp( User newUser )
+	public Integer registerTmp( User newUser ) throws Exception
 	{
 		int res = -1;
 		/**
@@ -249,26 +255,45 @@ public class User
 		
 		MySQL m_Mysql = new MySQL();
 		m_Mysql.ConnectToMySQL();
-		newUser.loginTime = new Date().getTime()/1000;
-		String sql = "insert into users ( username,sex,nickname,password,is_admin,email,signature,login_time )"
-				+ "values('"+newUser.username+"',"+newUser.sex+",'"+newUser.nickname+"','"+pwdMD5+"',"
-				+newUser.isAdmin+",'"+newUser.email+"','"+newUser.signature+"',"+newUser.loginTime+")";
-		int cnt = m_Mysql.Update( sql );
-		
-		if( cnt > 0 )
+		if( null == m_Mysql.getConnection() )
 		{
-			try
+			throw new Exception("连接出错！");
+		}
+		
+		try
+		{
+			String sql = "select * from users where username='" + newUser.username+"'";
+			ResultSet ret = m_Mysql.Query(sql);
+			ret.last();
+			long size = ret.getRow();
+			if( size > 0 )
+				throw new Exception("重复用户名！");
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		try
+		{
+			newUser.loginTime = new Date().getTime()/1000;
+			String sql = "insert into users ( username,sex,nickname,password,is_admin,email,signature,login_time )"
+					+ "values('"+newUser.username+"',"+newUser.sex+",'"+newUser.nickname+"','"+pwdMD5+"',"
+					+newUser.isAdmin+",'"+newUser.email+"','"+newUser.signature+"',"+newUser.loginTime+")";
+			int cnt = m_Mysql.Update( sql );
+			if( cnt > 0 )
 			{
 				sql = "select max(user_id) from users";
 				ResultSet ret = m_Mysql.Query(sql);
 				if( ret.next() )
 					res = ret.getInt(1);
 			}
-			catch( Exception e )
-			{
-				e.printStackTrace();
-			}
 		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			throw new Exception(e);
+		}		
 		m_Mysql.closeConnection();
 		return res;
 	}
