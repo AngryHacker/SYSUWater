@@ -46,6 +46,11 @@ public class Post {
 	private String authorName;
 	
 	/**
+	 * 访问数
+	 */
+	private int visit;
+
+	/**
 	 * 以下为对应 getter/setter
 	 * @return
 	 */
@@ -104,6 +109,14 @@ public class Post {
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
+		
+	public int getVisit() {
+		return visit;
+	}
+
+	public void setVisit(int visit) {
+		this.visit = visit;
+	}
 
 	/**
 	 * 取得帖子列表，返回 POST 数组
@@ -136,6 +149,7 @@ public class Post {
 	
 	/**
 	 * 取得对应帖子详情，需要所有数据
+	 * 要把 visit 加 1
 	 * 
 	 * @param postID 帖子 ID
 	 * @return
