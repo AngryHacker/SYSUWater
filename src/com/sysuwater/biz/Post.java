@@ -1,4 +1,7 @@
 package com.sysuwater.biz;
+//import java.util.*;
+
+import com.sysuwater.biz.User.LoginInfo;
 
 /**
  * Ьћзг
@@ -179,7 +182,45 @@ public class Post {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		
+		User m_User = new User();
+		try
+		{
+		m_User.setSex(true);
+		m_User.setEmail("leeweimian@gmail.com");
+		m_User.setIsAdmin(false);
+		m_User.setPassword("password");
+		m_User.setSignature("signature");
+		m_User.setUsername("Leeweimian");
+		m_User.setNickname("my_Nickname");
+		int res = m_User.registerTmp( m_User );
+		System.out.println( res );
+		}
+		catch( Exception e )
+		{
+			System.out.println(e);
+			//e.printStackTrace();
+		}
+		/*
+		try
+		{
+		LoginInfo res = m_User.loginTmp( "Leeweimian", "password" );
+		System.out.println( "id:" + res.getUserID() + " isSuccess:" + res.IsSuccess() + " isAdmin:" + res.IsAdmin());
+		}
+		catch( Exception e )
+		{
+			System.out.println(e);
+			//e.printStackTrace();
+		}
+		*/
+		/*
+		Plate m_Plate = new Plate();
+		Plate plates[] = m_Plate.getPlateList();
+		for( int i = 0; i < 4; i ++ )
+		{
+			System.out.println("id: " + plates[i].getPid()+" name: " + plates[i].getPname() + " introduction :"
+					+ plates[i].getIntroduction());
+		}
+		*/
 	}
 
 }
