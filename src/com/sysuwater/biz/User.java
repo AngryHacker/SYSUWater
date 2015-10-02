@@ -83,6 +83,11 @@ public class User
 		return loginTime;
 	}
 	
+	public void setLoginTime( long loginTime )
+	{
+		this.loginTime = loginTime;
+	}
+	
 	public Boolean isBoy()
 	{
 		if(this.sex != null)
@@ -206,6 +211,7 @@ public class User
 				sql = "update users set login_time="+loginTime+" where user_id="+id;
 				m_Mysql.Update(sql);
 			}
+			ret.close();
 		}
 		catch( Exception e )
 		{
@@ -254,11 +260,9 @@ public class User
 			m_Mysql.ConnectToMySQL();
 			String sql = "select * from users where username='" + newUser.username+"'";
 			ResultSet ret = m_Mysql.Query(sql);
-			ret.last();
-			long size = ret.getRow();
-			ret.close();
-			if( size > 0 )
+			if( ret.next() )
 				throw new Exception("重复用户名！");
+			ret.close();
 			
 			newUser.loginTime = new Date().getTime()/1000;
 			sql = "insert into users ( username,sex,nickname,password,is_admin,email,signature,login_time )"
@@ -303,10 +307,43 @@ public class User
 	
 	public User getUserInfoTmp( int userID ) throws Exception
 	{
-		User user = new User();
+		User m_User = new User();
 		MySQL m_Mysql = new MySQL();
-		m_Mysql.ConnectToMySQL();
-		return user;
+		try
+		{
+			m_Mysql.ConnectToMySQL();
+			String sql = "select * from users where user_id="+userID;
+			ResultSet ret = m_Mysql.Query(sql);
+			if( ret.next() )
+			{
+				String username = ret.getString("username");
+				String nickname = ret.getString("nickname");
+				String email = ret.getString("email");
+				String signature = ret.getString("signature");
+				boolean isAdmin = ret.getBoolean("is_admin");
+				boolean sex = ret.getBoolean("sex");
+				long loginTime = ret.getLong("login_time");
+				
+				m_User.setUsername( username );
+				m_User.setNickname(nickname);
+				m_User.setEmail(email);
+				m_User.setNickname(nickname);
+				m_User.setSex(sex);
+				m_User.setIsAdmin(isAdmin);
+				m_User.setLoginTime(loginTime);
+			}
+			else
+			{
+				throw new Exception("无该用户记录！");
+			}
+			ret.close();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		return m_User;
 	}
 	
 	/**
@@ -317,7 +354,9 @@ public class User
 	 * @param value
 	 * @return
 	 */
-	public Boolean updateInfo(String type, String value){
+	public Boolean updateInfo( int userID, String type, String value )
+	{
+		
 		return true;
 	}
 	
