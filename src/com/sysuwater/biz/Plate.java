@@ -57,15 +57,10 @@ public class Plate {
 	public Plate[] getPlateList() throws Exception
 	{
 		MySQL m_Mysql = new MySQL();
-		m_Mysql.ConnectToMySQL();
-		if( null == m_Mysql.getConnection() )
-		{
-			throw new Exception("Á¬½Ó³ö´í£¡");
-		}
-		
-		String sql = "select * from plate";
 		try
 		{
+			m_Mysql.ConnectToMySQL();		
+			String sql = "select * from plate";
 			ResultSet ret = m_Mysql.Query(sql);
 			ret.last();
 			int size = ret.getRow();

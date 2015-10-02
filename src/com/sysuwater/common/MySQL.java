@@ -21,16 +21,12 @@ public class MySQL
 	
 	private static ResultSet ret = null;
 	
-	public Connection getConnection()
-	{
-		return conn;
-	}
-	
 	/**
 	 * 获取新的  MySQL 连接
 	 * @return
+	 * @throws Exception 
 	 */
-	public void ConnectToMySQL()
+	public void ConnectToMySQL() throws Exception
 	{
 		try
 		{
@@ -39,11 +35,14 @@ public class MySQL
 		
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(connectString, DBUser, DBPsw);
+			if( null == conn )
+				throw new Exception("连接数据库出错！");
 			
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			throw new Exception(e);
 		}
 	}
 	

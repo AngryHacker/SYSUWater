@@ -185,15 +185,10 @@ public class User
 		}
 		
 		MySQL m_Mysql = new MySQL();
-		m_Mysql.ConnectToMySQL();
-		if( null == m_Mysql.getConnection() )
-		{
-			throw new Exception("连接出错！");
-		}
-		
-		String sql = "select user_id, is_admin, password from users where username='"+username+"'";
 		try
 		{
+			m_Mysql.ConnectToMySQL();
+			String sql = "select user_id, is_admin, password from users where username='"+username+"'";
 			ResultSet ret = m_Mysql.Query(sql);
 			if( ret.next() )
 			{
@@ -254,39 +249,29 @@ public class User
 			return res;
 		
 		MySQL m_Mysql = new MySQL();
-		m_Mysql.ConnectToMySQL();
-		if( null == m_Mysql.getConnection() )
-		{
-			throw new Exception("连接出错！");
-		}
-		
 		try
 		{
+			m_Mysql.ConnectToMySQL();
 			String sql = "select * from users where username='" + newUser.username+"'";
 			ResultSet ret = m_Mysql.Query(sql);
 			ret.last();
 			long size = ret.getRow();
+			ret.close();
 			if( size > 0 )
 				throw new Exception("重复用户名！");
-		}
-		catch( Exception e )
-		{
-			e.printStackTrace();
-			throw new Exception(e);
-		}
-		try
-		{
+			
 			newUser.loginTime = new Date().getTime()/1000;
-			String sql = "insert into users ( username,sex,nickname,password,is_admin,email,signature,login_time )"
+			sql = "insert into users ( username,sex,nickname,password,is_admin,email,signature,login_time )"
 					+ "values('"+newUser.username+"',"+newUser.sex+",'"+newUser.nickname+"','"+pwdMD5+"',"
 					+newUser.isAdmin+",'"+newUser.email+"','"+newUser.signature+"',"+newUser.loginTime+")";
 			int cnt = m_Mysql.Update( sql );
 			if( cnt > 0 )
 			{
 				sql = "select max(user_id) from users";
-				ResultSet ret = m_Mysql.Query(sql);
+				ret = m_Mysql.Query(sql);
 				if( ret.next() )
 					res = ret.getInt(1);
+				ret.close();
 			}
 		}
 		catch( Exception e )
@@ -313,6 +298,14 @@ public class User
 		user.sex = true;
 		user.signature = "hehe";
 		user.username = "ljc";
+		return user;
+	}
+	
+	public User getUserInfoTmp( int userID ) throws Exception
+	{
+		User user = new User();
+		MySQL m_Mysql = new MySQL();
+		m_Mysql.ConnectToMySQL();
 		return user;
 	}
 	
