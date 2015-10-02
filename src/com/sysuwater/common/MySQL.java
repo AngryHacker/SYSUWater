@@ -24,15 +24,17 @@ public class MySQL
 	
 	public final static String DBPsw = "CNkenio123";
 	
-	static Connection conn = null;
+	private static Connection conn = null;
 	
-	static java.sql.PreparedStatement pst = null;
+	private static PreparedStatement pst = null;
+	
+	private static ResultSet ret = null;
 	
 	/**
 	 * 获取新的  MySQL 连接
 	 * @return
 	 */
-	public static Connection getConnection()
+	public void ConnectToMySQL()
 	{
 		try
 		{
@@ -41,29 +43,42 @@ public class MySQL
 		
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(connectString, DBUser, DBPsw);
-
-			return conn;
 			
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			return null;
 		}
 	}
 	
-	public static PreparedStatement prepareSQL ( String sql )
+	public ResultSet Query( String sql )
 	{
 		try
 		{
 			pst = conn.prepareStatement( sql );
+			ret = pst.executeQuery();
+			return ret;
 		}
 		catch( Exception e )
 		{
 			e.printStackTrace();
 			return null;
 		}
-		return pst;
+	}
+	
+	public int Update( String sql )
+	{
+		try
+		{
+			pst = conn.prepareStatement( sql );
+			int cnt = pst.executeUpdate();
+			return cnt;
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			return -1;
+		}
 	}
 	
 	public void closeConnection()
@@ -72,6 +87,8 @@ public class MySQL
 		{
 			conn.close();
 			pst.close();
+			if( null != ret )
+				ret.close();
 		}
 		catch( Exception e )
 		{

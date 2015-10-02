@@ -1,12 +1,21 @@
 package com.sysuwater.biz;
+import com.mysql.jdbc.PreparedStatement;
+import com.sysuwater.common.*;
+
+import jdk.internal.org.objectweb.asm.commons.StaticInitMerger;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.Date;
 
 /**
  * 用户
- * @author 
+ * @author
  *
  */
-public class User {
-	
+public class User
+{	
 	/**
 	 * 可能更新的字段名称
 	 */
@@ -23,7 +32,7 @@ public class User {
 	/**
 	 * 登陆时间
 	 */
-	private int loginTime;
+	private long loginTime;
 	
 	/**
 	 * 性别
@@ -40,6 +49,11 @@ public class User {
 	 * 用户名
 	 */
 	private String username;
+	
+	/**
+	 * 昵称
+	 */
+	private String nickname;
 	
 	/**
 	 * 密码
@@ -59,68 +73,94 @@ public class User {
 	/**
 	 * 对应的 getter/setter
 	 */
-	public int getUserID(){
+	public int getUserID()
+	{
 		return userID;
 	}
 	
-	public void setUserID(int userID){
+	public void setUserID(int userID)
+	{
 		this.userID = userID;
 	}
 	
-	public int getLoginTime(){
+	public long getLoginTime()
+	{
 		return loginTime;
 	}
 	
-	public Boolean isBoy(){
+	public Boolean isBoy()
+	{
 		if(this.sex != null)
 			return sex;
 		return false;
 	}
 	
-	public void setSex(boolean sex){
+	public void setSex(boolean sex)
+	{
 		this.sex = sex;
 	}
 	
-	public Boolean isAdmin(){
-		if(this.isAdmin != null){
+	public Boolean isAdmin()
+	{
+		if(this.isAdmin != null)
+		{
 			return isAdmin;
 		}
 		return false;
 	}
 	
-	public void setIsAdmin(Boolean isAdmin){
+	public void setIsAdmin(Boolean isAdmin)
+	{
 		this.isAdmin = isAdmin;
 	}
 
-	public String getUsername() {
+	public String getUsername()
+	{
 		return username;
 	}
 
-	public void setUsername(String username) {
+	public void setUsername(String username)
+	{
 		this.username = username;
 	}
 
-	public String getEmail() {
+	public String getNickname()
+	{
+		return nickname;
+	}
+	
+	public void setNickname( String nickname )
+	{
+		this.nickname = nickname;
+	}
+	
+	public String getEmail()
+	{
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email)
+	{
 		this.email = email;
 	}
 
-	public String getSignature() {
+	public String getSignature()
+	{
 		return signature;
 	}
 
-	public void setSignature(String signature) {
+	public void setSignature(String signature)
+	{
 		this.signature = signature;
 	}
 
-	public String getPassword() {
+	public String getPassword()
+	{
 		return password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String password)
+	{
 		this.password = password;
 	}
 	
@@ -140,6 +180,41 @@ public class User {
 		return res;
 	}
 	
+	public LoginInfo loginTmp( String username, String password )
+	{
+		LoginInfo res = new LoginInfo();
+		res.setIsSuccess(false);
+		if( null == username || null == password )
+		{
+			return res;
+		}
+		MySQL m_Mysql = new MySQL();
+		m_Mysql.ConnectToMySQL();
+		String sql = "select user_id, is_admin, password from users where username='"+username+"'";
+		try
+		{
+			ResultSet ret = m_Mysql.Query(sql);
+			if( ret.next() )
+			{
+				int id = ret.getInt("user_id");
+				boolean isAdmin = ret.getBoolean("is_admin");
+				String rightPwd = ret.getString("password");
+				final String pwdMD5 =  MD5Util.String2MD5( password );
+				if( 0 == pwdMD5.compareTo(rightPwd) )
+				{
+					res.setIsSuccess(true);
+					res.setIsAdmin(isAdmin);
+					res.setUserID(id);
+				}
+			}
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+		}	
+		return res;
+	}
+	
 	/**
 	 * 传递进来不空的字段为 username、sex、password、nickname、email
 	 * password 先 md5 后进数据库
@@ -148,8 +223,54 @@ public class User {
 	 * @param newUser
 	 * @return
 	 */
-	public Integer register(User newUser){
+	public Integer register( User newUser )
+	{		
 		return 1;
+	}
+	public Integer registerTmp( User newUser )
+	{
+		int res = -1;
+		/**
+		 * 判断字段是否为空, 空则返回失败-1;
+		 */
+		if( null == newUser.username )
+			return res;
+		if( null == newUser.sex )
+			return res;
+		if( null == newUser.password )
+			return res;
+		if( null == newUser.nickname )
+			return res;
+		if( null == email )
+			return res;		
+		final String pwdMD5 = MD5Util.String2MD5( newUser.password );
+		if( null == pwdMD5 )
+			return res;
+		
+		MySQL m_Mysql = new MySQL();
+		m_Mysql.ConnectToMySQL();
+		newUser.loginTime = new Date().getTime()/1000;
+		String sql = "insert into users ( username,sex,nickname,password,is_admin,email,signature,login_time )"
+				+ "values('"+newUser.username+"',"+newUser.sex+",'"+newUser.nickname+"','"+pwdMD5+"',"
+				+newUser.isAdmin+",'"+newUser.email+"','"+newUser.signature+"',"+newUser.loginTime+")";
+		int cnt = m_Mysql.Update( sql );
+		
+		if( cnt > 0 )
+		{
+			try
+			{
+				sql = "select max(user_id) from users";
+				ResultSet ret = m_Mysql.Query(sql);
+				if( ret.next() )
+					res = ret.getInt(1);
+			}
+			catch( Exception e )
+			{
+				e.printStackTrace();
+			}
+		}
+		m_Mysql.closeConnection();
+		return res;
 	}
 	
 	/**
