@@ -64,3 +64,10 @@ CREATE TABLE `comments`
 	primary key (`com_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='评论表';
 
+insert into plate values(NULL, "校园社团", "校园社团");
+insert into plate values(NULL, "休闲娱乐", "休闲娱乐");
+insert into plate values(NULL, "电脑科技", "电脑科技");
+insert into plate values(NULL, "学术科学", "学术科学");
+insert into plate values(NULL, "谈天说地", "谈天说地");
+insert into plate values(NULL, "体育健身", "体育健身");
+
