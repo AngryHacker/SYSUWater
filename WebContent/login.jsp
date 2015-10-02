@@ -1,10 +1,32 @@
+<%@page import="com.sysuwater.biz.User.LoginInfo"%>
+<%@page import="com.sysuwater.biz.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%
 	request.setCharacterEncoding("utf-8");
 	String uid = (String)session.getAttribute("uid");
 	Boolean is_login = false;
-	if(uid != null) is_login = true;
+	if(uid != null && uid != "") is_login = true;
+	
+	String msg = "";
+	
+	String method = request.getMethod();
+	if(method.equalsIgnoreCase("POST")) {
+		try{
+			String username = request.getParameter("name");
+			String psw = request.getParameter("psw");
+			User user = new User();
+			LoginInfo res = user.login(username, psw);
+			if(!res.IsSuccess()){
+				throw new Exception("登录失败，请重试");
+			}
+			session.setAttribute("uid", Integer.toString(res.getUserID()));
+			session.setAttribute("isAdmin", res.IsAdmin());
+			response.sendRedirect("index.jsp");
+		} catch(Exception e) {
+			msg = e.getMessage();
+		}
+	}
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,7 +50,7 @@
 		<% if(is_login){ %>
 		<a href="" class="fr personal" >个人中心</a>
 		<% }else{ %>
-		<a href="login.jsp" class="fr personal" >登陆</a>
+		<a href="login.jsp" class="fr personal" >登录</a>
 		<a href="register.jsp" class="fr personal" >注册</a>
 		<% } %>
 	</div>
@@ -40,9 +62,13 @@
 					<div class="switch"><span class="switch_btn_focus">账号密码登录</span></div>
 				</div>
 				<div class="login_tips">
+				<% if(msg == null || msg == ""){ %>
+				<div class="error_tips" id="error_tips" style="display: none;">
+				<% }else{ %>
 				<div class="error_tips" id="error_tips" style="display: blcok;">
+				<% } %>
 					<span class="error_logo" id="error_logo"></span>
-					<span class="err_m" id="err_m">邮箱不可为空</span>
+					<span class="err_m" id="err_m"><%=msg%></span>
 				</div>
 				</div>
 				<div class="web_qr_login" id="web_qr_login">
@@ -54,13 +80,13 @@
 									<div class="uinArea" id="uinArea">
 										<label class="input_tips" id="uin_tips" for="u" style="display: block;">用户名</label>
 										<div class="inputOuter">
-											<input type="text" onclick="displayNone('uin_tips');displayNone('error_tips');" onblur="changeTips(this, 'uin_tips');" class="inputstyle" id="u" name="u" value="" tabindex="1">
+											<input type="text" onclick="displayNone('uin_tips');displayNone('error_tips');" onblur="changeTips(this, 'uin_tips');" class="inputstyle" id="u" name="name" value="" tabindex="1">
 										</div>
 									</div>
 									<div class="pwdArea" id="pwdArea">
 										<label class="input_tips" id="pwd_tips" for="p" style="display: block;">密码</label>
 										<div class="inputOuter">
-											<input type="password" onclick="displayNone('pwd_tips');displayNone('error_tips');" onblur="changeTips(this, 'pwd_tips');" class="inputstyle password" id="p" name="p" value="" maxlength="16" tabindex="2">
+											<input type="password" onclick="displayNone('pwd_tips');displayNone('error_tips');" onblur="changeTips(this, 'pwd_tips');" class="inputstyle password" id="p" name="psw" value="" maxlength="16" tabindex="2">
 										</div>
 									</div>
 									<div class="submit">
