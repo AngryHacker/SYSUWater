@@ -18,7 +18,7 @@
 <body>
 <div class="wrap">
 	<div class="nav">
-		<a href="" class="selected">首页</a>
+		<a href="index.jsp">首页</a>
 		<a href="">校园社团</a>
 		<a href="">休闲娱乐</a>
 		<a href="">电脑科技</a>
@@ -37,30 +37,35 @@
 		<div class="left_block fl">
 			<div class="login_no_qlogin">
 				<div class="header">
-					<div class="switch"><span class="switch_btn_focus">帐号密码登录</span></div>
+					<div class="switch"><span class="switch_btn_focus">账号密码登录</span></div>
 				</div>
-				<div class="login_tips"></div>
+				<div class="login_tips">
+				<div class="error_tips" id="error_tips" style="display: blcok;">
+					<span class="error_logo" id="error_logo"></span>
+					<span class="err_m" id="err_m">邮箱不可为空</span>
+				</div>
+				</div>
 				<div class="web_qr_login" id="web_qr_login">
 					<div class="web_qr_login_show" id="web_qr_login_show">
 						<div class="web_login" id="web_login">
 							<div class="tips"></div>
 							<div class="login_form">
-								<form id="loginform" name="loginform" action="" method="post">
+								<form id="loginform" name="loginform" action="login.jsp" method="post">
 									<div class="uinArea" id="uinArea">
 										<label class="input_tips" id="uin_tips" for="u" style="display: block;">用户名</label>
 										<div class="inputOuter">
-											<input type="text" class="inputstyle" id="u" name="u" value="" tabindex="1">
+											<input type="text" onclick="displayNone('uin_tips');displayNone('error_tips');" onblur="changeTips(this, 'uin_tips');" class="inputstyle" id="u" name="u" value="" tabindex="1">
 										</div>
 									</div>
 									<div class="pwdArea" id="pwdArea">
 										<label class="input_tips" id="pwd_tips" for="p" style="display: block;">密码</label>
 										<div class="inputOuter">
-											<input type="password" class="inputstyle password" id="p" name="p" value="" maxlength="16" tabindex="2">
+											<input type="password" onclick="displayNone('pwd_tips');displayNone('error_tips');" onblur="changeTips(this, 'pwd_tips');" class="inputstyle password" id="p" name="p" value="" maxlength="16" tabindex="2">
 										</div>
 									</div>
 									<div class="submit">
 										<a class="login_button">
-											<input type="submit" tabindex="6" value="登 录" class="btn" id="login_button" />
+											<input type="submit" tabindex="6" value="登录" class="btn" id="login_button" />
 										</a>
 									</div>
 								</form>
@@ -208,5 +213,16 @@
 		<p>Hope you like it</p>
 	</div>
 </div>
+<script>
+function displayNone(text){
+	document.getElementById(text).style.display="none";
+}
+function changeTips(field, tips){
+	var inputText = field.value;
+	if(inputText == null || inputText == ""){
+		document.getElementById(tips).style.display="block";
+	}
+}
+</script>
 </body>
 </html>

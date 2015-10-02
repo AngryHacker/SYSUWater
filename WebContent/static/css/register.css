@@ -1,8 +1,8 @@
 @CHARSET "UTF-8";
 
 .left_block{
-	height:400px;
-	background: url(http://qzonestyle.gtimg.cn/py-v4/img/login/bg-login.png?max_age=19830211&d=20130116161938) repeat-x 0 0 #fff;
+	height:500px;
+	background:url(http://qzonestyle.gtimg.cn/py-v4/img/login/bg-login.png?max_age=19830211&d=20130116161938) repeat 0 0 #fff
 }
 
 .login, .login_no_qlogin {
@@ -10,7 +10,7 @@
   border: 0;
   background-color: #fff;
   margin:0 auto;
-  margin-top:50px;
+  margin-top:10px;
   width:400px;
   position:realative;
 }
@@ -55,7 +55,7 @@
 }
 .web_qr_login {
   position: relative;
-  height: 265px;
+  height: 390px;
   overflow: hidden;
 }
 
