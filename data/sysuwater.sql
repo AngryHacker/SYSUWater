@@ -37,6 +37,7 @@ CREATE TABLE post
 	`post_id` INTEGER NOT NULL AUTO_INCREMENT comment '主键',
 	`title` VARCHAR(128) NOT NULL comment '标题',
 	`content` TEXT NOT NULL comment '帖子内容',
+	`visit` INTEGER not null default 0 comment '访问数',
 	`create_time` INTEGER not null comment '创建时间',
 	`author_id` INTEGER NOT NULL comment '作者',
 	`is_delete` TINYINT NOT NULL DEFAULT 0 comment '是否删除',
