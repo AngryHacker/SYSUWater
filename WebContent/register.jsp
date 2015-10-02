@@ -1,3 +1,4 @@
+<%@page import="com.sysuwater.biz.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%
@@ -5,6 +6,58 @@
 	String uid = (String)session.getAttribute("uid");
 	Boolean is_login = false;
 	if(uid != null) is_login = true;
+	
+    String msg = "";
+	
+	String method = request.getMethod();
+	if(method.equalsIgnoreCase("POST")) {
+		try{
+			String username = request.getParameter("name");
+			String sex = request.getParameter("sex");
+			String nick = request.getParameter("nick");
+			String email = request.getParameter("mail");
+			String psw = request.getParameter("psw");
+			String psw2 = request.getParameter("psw2");
+			
+			if(username == null){
+				throw new Exception("用户名不能为空！");
+			}
+			if(nick == null){
+				throw new Exception("昵称不能为空！");
+			}
+			if(email == null){
+				throw new Exception("邮箱不能为空！");
+			}
+			if(psw == null || psw2 == null){
+				throw new Exception("密码不能为空！");
+			}
+			if(!psw.equals(psw2)){
+				throw new Exception("两次输入密码不相同!");
+			}
+			
+			User user = new User();
+			user.setUsername(username);
+			if(sex.equals("1")){
+				user.setSex(true);
+			}else{
+				user.setSex(false);
+			}
+			user.setEmail(email);
+			user.setIsAdmin(false);
+			user.setNickname(nick);
+			user.setPassword(psw);
+			
+			int id = user.registerTmp(user);
+			if(id == -1){
+				throw new Exception("注册失败，请重试!");
+			}
+			session.setAttribute("uid", Integer.toString(id));
+			session.setAttribute("isAdmin", false);
+			response.sendRedirect("index.jsp");
+		} catch(Exception e) {
+			msg = e.getMessage();
+		}
+	}
 %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -40,9 +93,13 @@
 					<div class="switch"><span class="switch_btn_focus">新用户注册</span></div>
 				</div>
 				<div class="login_tips">
+				<% if(msg == null || msg == ""){ %>
+				<div class="error_tips" id="error_tips" style="display: none;">
+				<% }else{ %>
 				<div class="error_tips" id="error_tips" style="display: blcok;">
+				<% } %>
 					<span class="error_logo" id="error_logo"></span>
-					<span class="err_m" id="err_m">邮箱不可为空</span>
+					<span class="err_m" id="err_m"><%=msg%></span>
 				</div>
 				</div>
 				<div class="web_qr_login" id="web_qr_login">
@@ -56,6 +113,12 @@
 										<div class="inputOuter">
 											<input type="text" onclick="displayNone('uin_tips');displayNone('error_tips');" onblur="changeTips(this, 'uin_tips');" class="inputstyle" id="u" name="name" value="" tabindex="1">
 										</div>
+									</div>
+									<div id="sex_div" class="sex">
+										<input type="radio" id="imweb_sex_1" name="sex" checked="checked" value="1">
+										<label for="sex_man">男</label>
+										<input type="radio" id="imweb_sex_2" name="sex" value="2">
+										<label for="sex_woman">女</label>
 									</div>
 									<div class="uinArea" id="nickArea">
 										<label class="input_tips" id="nick_tips" for="u" style="display: block;">昵称</label>
@@ -72,7 +135,7 @@
 									<div class="pwdArea" id="pwdArea">
 										<label class="input_tips" id="pwd_tips" for="p" style="display: block;">密码</label>
 										<div class="inputOuter">
-											<input type="password" onclick="displayNone('pwd_tips');displayNone('error_tips');" onblur="changeTips(this, 'pwd_tips');" class="inputstyle password" id="psw" name="p" value="" maxlength="16" tabindex="2">
+											<input type="password" onclick="displayNone('pwd_tips');displayNone('error_tips');" onblur="changeTips(this, 'pwd_tips');" class="inputstyle password" id="psw" name="psw" value="" maxlength="16" tabindex="2">
 										</div>
 									</div>
 									<div class="pwdArea" id="pwd2Area">
