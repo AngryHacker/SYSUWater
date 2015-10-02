@@ -1,5 +1,8 @@
 package com.sysuwater.biz;
 
+import com.sysuwater.common.*;
+import java.sql.*;
+
 /**
  * 版块
  * @author
@@ -50,16 +53,39 @@ public class Plate {
 	 * 获取所有版块
 	 * @return
 	 */
-	public Plate[] getPlateList(){
-		Plate[] plates = new Plate[2];
-		plates[0].pid = 1;
-		plates[0].pname = "学术探讨";
-		plates[0].introduction = "这里是学术的失乐园";
-		
-		plates[1].pid = 2;
-		plates[0].pname = "八卦天地";
-		plates[1].introduction = "哇咔咔";
-		return plates;
+	public Plate[] getPlateList()
+	{
+		MySQL m_Mysql = new MySQL();
+		m_Mysql.ConnectToMySQL();
+		String sql = "select * from plate";
+		try
+		{
+			ResultSet ret = m_Mysql.Query(sql);
+			ret.last();
+			int size = ret.getRow();
+			Plate[] plates = new Plate[size];
+			ret.beforeFirst();
+			int i = 0;
+			while( ret.next() )
+			{
+				int pid = ret.getInt( "p_id" );
+				String pname = ret.getString( "pname" );
+				String intro = ret.getString( "introduction" );
+				plates[i] = new Plate();
+				plates[i].setPid( pid );
+				plates[i].setPname( pname );
+				plates[i].setIntroduction( intro );
+				i++;
+			}
+			m_Mysql.closeConnection();
+			return plates;
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			m_Mysql.closeConnection();
+			return null;
+		}
 	}
 	
 	/**
