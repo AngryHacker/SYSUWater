@@ -1,0 +1,174 @@
+@CHARSET "UTF-8";
+
+html, body {
+  font: 400 12px/20px 'Microsoft Yahei','微软雅黑','Simsun','宋体','Arial';
+}
+
+div{
+	display:block;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img, blockquote, dl, dt, dd {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  display: block;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+}
+
+h2 {
+  display: block;
+  font-size: 1.5em;
+  -webkit-margin-before: 0.83em;
+  -webkit-margin-after: 0.83em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  font-weight: bold;
+}
+
+.clearfix {
+	clear: both;
+}
+
+.wrap {
+  width: 1000px;
+  margin: 10px auto;
+}
+
+.nav{
+  background: #d39557;
+  font-size: 14px;
+  line-height: 40px;
+  color: #fff;
+}
+
+.nav a:link, .nav a:visited {
+  color: #fff;
+}
+
+.nav a {
+  padding: 0 7px;
+  display: inline-block;
+  height: 40px;
+}
+
+.nav .selected {
+  background: #cc6600;
+}
+
+.footer {
+  text-align: center;
+  border-top: 4px solid #e0ddd5;
+  color: #5a6b7b;
+  line-height: 26px;
+  padding: 15px 0 60px;
+}
+
+.fr {
+	float:right;
+}
+
+.fl {
+	float:left;
+}
+
+.personal {
+	margin-right:10px;
+}
+
+.container {
+	height:200px;
+	margin-top: 20px;
+    background: url(http://i2.sinaimg.cn/blog/deco/2014/0312/imgs/r01.png) repeat-y 690px 0;
+}
+
+.right_block {
+	width:300px;
+}
+
+.left_block {
+	width:660px;
+	border:solid 1px #CCC;
+	height:100px;
+}
+
+.hot {
+	padding-top:2px;
+}
+
+.tit01{
+	zoom: 1;
+	background: url(http://i0.sinaimg.cn/blog/deco/2014/0312/imgs/r102.png) repeat-x 0 top;
+}
+
+a.tit01_s:link, a.tit01_s:visited {
+  color: #000;
+}
+a.tit01_s:link, a.tit01_s:visited {
+  color: #000;
+}
+.tit01_s {
+  float: left;
+  padding-right: 7px;
+  font: 400 22px/46px 'Microsoft Yahei','微软雅黑','Simhei','黑体';
+  border-top: 2px solid #fc6c0d;
+  _display: inline;
+}
+
+.right_block .a_more {
+  margin-right: 10px;
+  font-weight: 400;
+  line-height: 48px;
+  font-size: 14px;
+}
+
+.a_more:visited {
+  color: #666;
+}
+.a_more:link {
+  color: #666;
+}
+
+.hot .tit02 {
+  font-size: 16px;
+  line-height: 26px;
+}
+.right_block .tit02 {
+  margin-top: 3px;
+}
+.tit02 {
+  font: 400 18px/30px 'Microsoft Yahei','微软雅黑','Simhei','黑体';
+  color: #333;
+}
+
+.tit02 a:visited {
+  color: #676256;
+}
+.tit02 a:link {
+  color: #333;
+}
+
+.hot .pmeta01 {
+  line-height: 18px;
+  padding-bottom: 2px;
+}
+.pmeta01 {
+  color: #999;
+  line-height: 24px;
+  text-align: right;
+}
+
+.pmeta01 a:link, .pmeta01 a:visited {
+  color: #999;
+}
