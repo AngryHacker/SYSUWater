@@ -88,7 +88,7 @@ h2 {
 }
 
 .container {
-	height:200px;
+	height:auto;
 	margin-top: 20px;
     background: url(http://i2.sinaimg.cn/blog/deco/2014/0312/imgs/r01.png) repeat-y 690px 0;
 }
@@ -99,8 +99,6 @@ h2 {
 
 .left_block {
 	width:660px;
-	border:solid 1px #CCC;
-	height:100px;
 }
 
 .hot {
