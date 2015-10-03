@@ -1,5 +1,7 @@
 package com.sysuwater.biz;
-//import java.util.*;
+
+import com.sysuwater.common.*;
+import java.sql.*;
 
 import com.sysuwater.biz.User.LoginInfo;
 
@@ -23,7 +25,7 @@ public class Post {
 	/**
 	 * 发帖时间，为 INT
 	 */
-	private int createTime;
+	private long createTime;
 	
 	/**
 	 * 版块 ID
@@ -49,6 +51,7 @@ public class Post {
 	 * 访问数
 	 */
 	private int visit;
+	
 
 	/**
 	 * 以下为对应 getter/setter
@@ -78,11 +81,11 @@ public class Post {
 		this.pid = pid;
 	}
 	
-	public int getCreateTime() {
+	public long getCreateTime() {
 		return createTime;
 	}
 	
-	public void setCreateTime(int createTime){
+	public void setCreateTime(long createTime){
 		this.createTime = createTime;
 	}
 	
@@ -118,6 +121,7 @@ public class Post {
 		this.visit = visit;
 	}
 
+
 	/**
 	 * 取得帖子列表，返回 POST 数组
 	 * 数据域除了 content 其他都要
@@ -127,8 +131,8 @@ public class Post {
 	 * TODO：后期决定是否制定返回帖子数及范围
 	 * @return
 	 */
-	public Post[] getPostList(int pid){
-		
+	public Post[] getPostList(int pid)
+	{	
 		Post[] post = new Post[2];
 		post[0].authorID = 1;
 		post[0].authorName = "user1";
@@ -142,9 +146,55 @@ public class Post {
 		post[1].createTime = 12345678;
 		post[1].pid = 2;
 		post[1].postID = 2;
+		
 		post[1].title = "second post";
 		
 		return post;
+	}
+	
+	public Post[] getPostListTmp( int pid ) throws Exception
+	{
+		MySQL m_Mysql = new MySQL();
+		try
+		{
+			m_Mysql.ConnectToMySQL();
+			String sql = "select * from post left join users on post.author_id = users.user_id where p_id="+pid
+					+" and is_delete=0";
+			ResultSet ret = m_Mysql.Query(sql);
+			ret.last();
+			int size = ret.getRow();
+			if( size <= 0 )
+				throw new Exception("无该板块ID！");
+			ret.beforeFirst();
+			Post [] posts = new Post[size];
+			
+			int index = 0;
+			while(ret.next())
+			{
+				posts[index] = new Post();
+				int postId= ret.getInt("post_id");
+				String title = ret.getString("title");
+				int visit = ret.getInt("visit");
+				long createTime = ret.getLong("create_time");
+				int authorId = ret.getInt("author_id");
+				String authodName = ret.getString("username");
+				
+				posts[index].setAuthorID(authorId);
+				posts[index].setAuthorName(authodName);
+				posts[index].setCreateTime(createTime);
+				posts[index].setPostID(postId);
+				posts[index].setPid(pid);
+				posts[index].setTitle(title);
+				posts[index].setVisit(visit);
+				index++;
+			}
+			return posts;
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			throw new Exception(e);
+		}
 	}
 	
 	/**
@@ -196,6 +246,22 @@ public class Post {
 	 * @param args
 	 */
 	public static void main(String[] args){
+		Post post = new Post();
+		try
+		{
+			Post[] posts = post.getPostListTmp(1);
+			for( int i = 0; i < posts.length; i ++ )
+			{
+				System.out.println("postId: "+posts[i].getPostID()+" pid: "+posts[i].getPid()+
+						" authorId: "+posts[i].getAuthorID()+" authorName: "+posts[i].getAuthorName() + " title:"
+						+ posts[i].getTitle() + " createTime: "+posts[i].getCreateTime() + " visit: " + posts[i].getVisit());
+			}
+		}
+		catch( Exception e )
+		{
+			System.out.println(e);
+		}
+		/*
 		User m_User = new User();
 		try
 		{
@@ -214,6 +280,7 @@ public class Post {
 			System.out.println(e);
 			//e.printStackTrace();
 		}
+		*/
 		/*
 		try
 		{

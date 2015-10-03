@@ -327,6 +327,7 @@ public class User
 				m_User.setUsername( username );
 				m_User.setNickname(nickname);
 				m_User.setEmail(email);
+				m_User.setSignature(signature);
 				m_User.setNickname(nickname);
 				m_User.setSex(sex);
 				m_User.setIsAdmin(isAdmin);
