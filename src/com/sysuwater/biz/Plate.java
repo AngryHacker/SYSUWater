@@ -54,7 +54,7 @@ public class Plate {
 	 * @return
 	 * @throws Exception 
 	 */
-	public Plate[] getPlateList() throws Exception
+	public static Plate[] getPlateList() throws Exception
 	{
 		MySQL m_Mysql = new MySQL();
 		try

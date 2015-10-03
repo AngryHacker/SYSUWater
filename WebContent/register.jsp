@@ -1,4 +1,5 @@
 <%@page import="com.sysuwater.biz.User"%>
+<%@page import="com.sysuwater.biz.Plate"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%
@@ -8,6 +9,14 @@
 	if(uid != null) is_login = true;
 	
     String msg = "";
+    
+	// 获得所有版块
+	Plate[] plates = null;
+	try{
+		plates = Plate.getPlateList();
+	}catch(Exception e){
+		// log
+	}
 	
 	String method = request.getMethod();
 	if(method.equalsIgnoreCase("POST")) {
@@ -72,16 +81,14 @@
 <div class="wrap">
 	<div class="nav">
 		<a href="index.jsp">首页</a>
-		<a href="">校园社团</a>
-		<a href="">休闲娱乐</a>
-		<a href="">电脑科技</a>
-		<a href="">学术科学</a>
-		<a href="">谈天说地</a>
-		<a href="">体育健身</a>
+		<% if(plates != null){
+			for(Plate plate:plates){ %>
+		<a href="post.jsp?p=<%=plate.getPid()%>"><%=plate.getPname()%></a>
+		<% }} %>
 		<% if(is_login){ %>
 		<a href="" class="fr personal" >个人中心</a>
 		<% }else{ %>
-		<a href="login.jsp" class="fr personal" >登陆</a>
+		<a href="login.jsp" class="fr personal" >登录</a>
 		<a href="register.jsp" class="fr personal" >注册</a>
 		<% } %>
 	</div>
