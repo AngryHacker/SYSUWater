@@ -1,0 +1,217 @@
+@CHARSET "UTF-8";
+
+.board-list-hd {
+  height: 35px;
+}
+
+.board-list-hd .board-list-title {
+  line-height: 35px;
+  _zoom: 1;
+  vertical-align: middle;
+  text-align: left;
+  color: #3e3e3e;
+  float: left;
+  _display: inline;
+  min-width: 315px;
+  text-indent: 26px;
+}
+
+.board-list-hd .right {
+  width: 41%;
+  max-width: 370px;
+}
+
+.board-list-hd .board-list-write {
+  float: left;
+  _display: inline;
+  width: 32%;
+  overflow: hidden;
+  line-height: 35px;
+  _zoom: 1;
+  vertical-align: middle;
+  text-align: left;
+  color: #3e3e3e;
+}
+
+.board-list-hd .right a:visited {
+  color: #3e3e3e;
+}
+
+.board-list-hd .right a:link {
+  color: #3e3e3e;
+}
+
+.board-list-hd .icon-rank-down {
+  margin-left: 2px;
+}
+
+.icon-rank-down {
+  background: transparent url('http://img1.cache.netease.com/bbs/static/image/sprites.png') no-repeat 0 -194px;
+  display: inline-block;
+  font-size: 0;
+  width: 7px;
+  height: 8px;
+}
+
+.board-list-hd .board-list-count {
+  float: left;
+  _display: inline;
+  width: 34%;
+  overflow: hidden;
+  line-height: 35px;
+  _zoom: 1;
+  vertical-align: middle;
+  color: #3e3e3e;
+  text-align: center;
+}
+
+.board-list-hd .board-list-reply {
+  float: left;
+  _display: inline;
+  width: 32%;
+  overflow: hidden;
+  line-height: 35px;
+  _zoom: 1;
+  vertical-align: middle;
+  text-align: center;
+  color: #3e3e3e;
+}
+
+.board-list-bd {
+  margin-bottom: 10px;
+  zoom: 1;
+}
+
+.board-list-bd .board-list-one {
+  line-height: 15px;
+  _zoom: 1;
+  vertical-align: middle;
+  text-align: left;
+  color: #3e3e3e;
+  overflow: hidden;
+  min-width: 565px;
+  height: 45px;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.board-list-bd .board-list-one.odd {
+  background-color: #f2f2f2;
+}
+
+.board-list-bd .board-list-one .board-list-title {
+  float: left;
+  _display: inline;
+  line-height: 35px;
+  _zoom: 1;
+  vertical-align: middle;
+  text-align: left;
+  color: #3e3e3e;
+  min-width: 315px;
+  padding-left: 26px;
+  width: 54%;
+  height: 45px;
+  overflow: hidden;
+}
+
+.board-list-bd .board-list-one .right {
+  width: 41%;
+  max-width: 370px;
+}
+
+.board-list-bd .board-list-one .board-list-title .board-list-title-box {
+  height: 45px;
+  text-overflow: ellipsis;
+  display: table;
+  vertical-align: middle;
+}
+
+.board-list-bd .board-list-one .board-list-title .board-list-title-box .board-list-title-wrap {
+  display: table-cell;
+  vertical-align: middle;
+  top: 50%;
+  width: 100%;
+}
+
+.board-list-bd .board-list-one .board-list-title .board-list-title-box .board-list-title-wrap .board-list-title-inner {
+  top: -50%;
+}
+
+.board-list-bd .board-list-one .article-title {
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+a:visited {
+  color: #83006f;
+}
+a:link {
+  color: #3e3e3e;
+}
+a:visited {
+  color: #83006f;
+  text-decoration: none;
+}
+
+.board-list-bd .board-list-one .board-list-write {
+  float: left;
+  _display: inline;
+  width: 32%;
+  overflow: hidden;
+  line-height: 35px;
+  _zoom: 1;
+  vertical-align: middle;
+  text-align: left;
+  color: #3e3e3e;
+  line-height: 17px;
+  padding: 5px 0 4px;
+}
+
+.board-list-bd .board-list-one .board-list-count {
+  float: left;
+  _display: inline;
+  line-height: 35px;
+  _zoom: 1;
+  vertical-align: middle;
+  text-align: left;
+  color: #3e3e3e;
+  width: 34%;
+  overflow: hidden;
+  line-height: 43px;
+  text-align: center;
+}
+
+.board-list-bd .board-list-one .board-list-reply {
+  float: left;
+  _display: inline;
+  width: 32%;
+  overflow: hidden;
+  line-height: 35px;
+  _zoom: 1;
+  vertical-align: middle;
+  text-align: center;
+  color: #3e3e3e;
+  line-height: 43px;
+  padding: 5px 0 4px;
+}
+
+.board-list-bd .board-list-one .right a:visited {
+  color: #3e3e3e;
+}
+.board-list-bd .board-list-one .right a:link {
+  color: #3e3e3e;
+}
+
+.board-list-bd .board-list-one .date {
+  display: block;
+  color: #888;
+}
+
+.board-list-bd .board-list-one .board-list-count .board-list-count-inner {
+  margin: 0 10px;
+  overflow: hidden;
+}
+
+.board-list-bd .board-list-one .date {
+  display: block;
+  color: #888;
+}

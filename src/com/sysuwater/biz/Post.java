@@ -146,7 +146,30 @@ public class Post {
 	 * TODO：后期决定是否制定返回帖子数及范围
 	 * @return
 	 */
-	public Post[] getPostList( int pid ) throws Exception
+	public Post[] getPostList(int pid)
+	{	
+		Post[] post = new Post[2];
+		post[0] = new Post();
+		post[0].authorID = 1;
+		post[0].authorName = "user1";
+		post[0].createTime = 12345678;
+		post[0].pid = 1;
+		post[0].postID = 1;
+		post[0].title = "first post";
+		
+		post[1] = new Post();
+		post[1].authorID = 2;
+		post[1].authorName = "user2";
+		post[1].createTime = 12345678;
+		post[1].pid = 2;
+		post[1].postID = 2;
+		
+		post[1].title = "second post";
+		
+		return post;
+	}
+	
+	public Post[] getPostListTmp( int pid ) throws Exception
 	{
 		MySQL m_Mysql = new MySQL();
 		try

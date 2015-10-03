@@ -1,12 +1,181 @@
+<%@page import="com.sysuwater.biz.Plate"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	String uid = (String)session.getAttribute("uid");
+	Boolean is_login = false;
+	if(uid == null)
+		response.sendRedirect("login.jsp");
+	
+	// 获得所有版块
+	Plate[] plates = null;
+	Integer pid = null;
+	Integer postID = null;
+	try{
+		plates = Plate.getPlateList();
+		String p = request.getParameter("p");
+		if(p == null) response.sendRedirect("index.jsp");
+		pid = Integer.valueOf(p);
+		
+		String postIdString = request.getParameter("id");
+		if(postIdString == null) response.sendRedirect("post.jsp?p="+pid);
+		postID = Integer.valueOf(postIdString);
+	}catch(Exception e){
+		// log
+		response.sendRedirect("index.jsp");
+	}
+	
+%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>SYSUWater —— 帖子详情</title>
+<link rel="stylesheet" type="text/css" href="static/css/site.css" />
+<link rel="stylesheet" type="text/css" href="static/css/detail.css" />
+<title>SYSUWater</title>
 </head>
 <body>
+<div class="wrap">
+	<div class="nav">
+		<a href="index.jsp">首页</a>
+		<% if(plates != null){
+			for(Plate plate:plates){
+				if(pid == plate.getPid()) {%>
+		<a href="post.jsp?p=<%=plate.getPid()%>" class="selected"><%=plate.getPname()%></a>
+		<% }else{ %>
+		<a href="post.jsp?p=<%=plate.getPid()%>"><%=plate.getPname()%></a>
+		<% }}} %>
+		<% if(is_login){ %>
+		<a href="" class="fr personal" >个人中心</a>
+		<% }else{ %>
+		<a href="login.jsp" class="fr personal" >登录</a>
+		<a href="register.jsp" class="fr personal" >注册</a>
+		<% } %>
+	</div>
+	
+	<div class="container clearfix">
+		<div class="left_block fl tie_bd" id="tie_bd">
+			<div class="tie-item tie-first-item">
+				<div class="tie-con">
+					<div class="tie-con-hd">
+						<div class="tie-con-hd-panel">
+							<a href="">踏星楼主</a>
+							<span class="time" id="floor-$item.floor">楼主 &nbsp;&nbsp; 2015-10-01 20:47:03</span>
+							<span class="time">阅读：1502</span>
+						</div>
+						<h2 class="tie-con-hd-title js-tietitle" style="color:#444;">政治要赔上终生的精力。</h2>
+					</div>
+					<div class="tie-con-bd clearfix">
+                    	<div class="tie-content">
+                        这句话是我小时候爸爸跟我说的。也就是说一个人玩政治作为理想。想要做出成绩要付上一生。道路漫漫长。政治其实就是玩你欺我诈。目的就是利益和地位。为了利益和地位不惜一切耍手段。美国为了保持世界大哥的位置不惜讲假话做假证据发动战争。中东不听话就是打。枪杆子里出政权。亚洲就培养经济实力强的日本牵制着中国。不费兵力来解决中国人的威胁。这也是兵子孙发的相互牵制共谱和谐利益。中国有日本这个强大的军事国来制服着。美国就少了烦恼。今天有网搏搏出美国培训日本特种部队海陆空的军事的练习。
+  所以玩政治不是一般人能看懂读懂的。政治是残忍的。人民是善良的。但任何的政治格斗受伤害的永远是人民的利益和生存问题。政治家们可管不了这么多。作为政治家得铁石心肠。所以我爸爸说 
+  						</div>
+               		</div>
+               		<div class="tie-con-manange">
+               			<div class="tie-con-manange-panel">
+                        	<a href="#editor">回复本帖</a>
+                        	<a href="delete.jsp">删除帖子</a>
+                    	</div>
+               		</div>
+				</div>
+			</div>
+			
+			<div class="tie-item">
+				<div class="tie-con">
+					<div class="tie-con-hd tie-con-hd-sub">
+						<div class="tie-con-hd-panel tie-con-hd-panel-sub">
+							<a href="">方天府</a>
+							<span class="time" id="floor-$item.floor">2楼 &nbsp;&nbsp; 2015-10-01 21:47:03</span>
+						</div>
+					</div>
+					<div class="tie-con-bd clearfix">
+                    	<div class="tie-content">踩踩</div>
+               		</div>
+				</div>
+			</div>
+			
+			<div class="tie-item">
+				<div class="tie-con">
+					<div class="tie-con-hd tie-con-hd-sub">
+						<div class="tie-con-hd-panel tie-con-hd-panel-sub">
+							<a href="">先生走好</a>
+							<span class="time" id="floor-$item.floor">3楼 &nbsp;&nbsp; 2015-10-01 21:48:03</span>
+						</div>
+					</div>
+					<div class="tie-con-bd clearfix">
+                    	<div class="tie-content">此为正理</div>
+               		</div>
+				</div>
+			</div>
+			
+			<form action="commentcheck.jsp" method="post">
+				<div class="commentform">
+					<div class="panel_head" id="editor">发表评论</div>
+					
+					<textarea class="comment_content" name="comment_content" id="comment_content" style="width: 500px; height: 200px;"></textarea>
+					<div class="clearfix">
+						<input type="hidden" name="post_id" value="<%=postID%>" />
+						<input type="submit" class="comment_btn" value="回复本帖" />
+					</div>
+				</div>
+			</form>
+			
+		</div>
+		
+		<div class="right_block  fr">
+			<div class="hot">
+				<h2 class="tit01">
+					<a href="" class="tit01_s">热点</a>
+					<a href="" class="a_more fr">更多</a>
+				</h2>
+				<div class="hot_c clearfix" style="height: auto;">
+					<div class="hot_items clearfix">
+						<h3 class="tit02">
+							<a href="">中大竟出现宇宙草！</a>
+						</h3>
+						<p class="pmeta01 clearfix">
+							<span class="fl">
+								作者：<a href="">中大 Din</a>
+							</span>
+							<a href="">评论</a>
+						</p>
+            		</div>
+            		
+            		<div class="hot_items clearfix">
+						<h3 class="tit02">
+							<a href="">神盾局第三季开播，你猜到剧情了吗</a>
+						</h3>
+						<p class="pmeta01 clearfix">
+							<span class="fl">
+								作者：<a href="">中大 Ain</a>
+							</span>
+							<a href="">评论</a>
+						</p>
+            		</div>
+            		
+            		<div class="hot_items clearfix">
+						<h3 class="tit02">
+							<a href="">2015国赛，评选身边猪一样的队友</a>
+						</h3>
+						<p class="pmeta01 clearfix">
+							<span class="fl">
+								作者：<a href="">中大 Bin</a>
+							</span>
+							<a href="">评论</a>
+						</p>
+            		</div>
 
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="footer clearfix">
+		<p>SYSUWater —— 我们是中大论坛爱好者。这里是情怀的聚集地。</p>
+		<p>我们坚信纯文字便是最美的，文字是最水的力量</p>
+		<p>Hope you like it</p>
+	</div>
+</div>
 </body>
 </html>
