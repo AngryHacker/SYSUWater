@@ -134,6 +134,7 @@ public class Post {
 	public Post[] getPostList(int pid)
 	{	
 		Post[] post = new Post[2];
+		post[0] = new Post();
 		post[0].authorID = 1;
 		post[0].authorName = "user1";
 		post[0].createTime = 12345678;
@@ -141,6 +142,7 @@ public class Post {
 		post[0].postID = 1;
 		post[0].title = "first post";
 		
+		post[1] = new Post();
 		post[1].authorID = 2;
 		post[1].authorName = "user2";
 		post[1].createTime = 12345678;
