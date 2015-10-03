@@ -93,6 +93,7 @@
 	</div>
 	<div class="footer clearfix">
 		<p>SYSUWater —— 我们是中大论坛爱好者。这里是情怀的聚集地。</p>
+		<p>我们坚信纯文字便是最美的，文字是最水的力量</p>
 		<p>Hope you like it</p>
 	</div>
 </div>
