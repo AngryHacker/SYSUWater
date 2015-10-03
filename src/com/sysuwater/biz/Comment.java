@@ -1,5 +1,9 @@
 package com.sysuwater.biz;
 
+import com.sysuwater.common.MySQL;
+import java.sql.*;
+import java.util.Date;
+
 /**
  * 评论
  * @author
@@ -25,7 +29,7 @@ public class Comment {
 	/**
 	 * 评论时间
 	 */
-	private int createTime;
+	private long createTime;
 	
 	/**
 	 * 评论内容
@@ -64,11 +68,11 @@ public class Comment {
 		this.authorID = authorID;
 	}
 	
-	public int getCreateTime() {
+	public long getCreateTime() {
 		return createTime;
 	}
 	
-	public void setCreateTime(int createTime){
+	public void setCreateTime(long createTime){
 		this.createTime = createTime;
 	}
 	
@@ -93,16 +97,47 @@ public class Comment {
 	 * 
 	 * @param postID
 	 * @return
+	 * @throws Exception 
 	 */
-	public Comment[] getCommentsByPostID(int postID){
-		Comment[] comments = new Comment[1];
-		comments[0].authorID = 1;
-		comments[0].authorName = "ljc";
-		comments[0].comID = 1;
-		comments[0].content = "leave";
-		comments[0].createTime = 12345678;
-		comments[0].postID = 1;
-		return comments;
+	public Comment[] getCommentsByPostID(int postID) throws Exception
+	{
+		MySQL m_Mysql = new MySQL();
+		try
+		{
+			m_Mysql.ConnectToMySQL();
+			String sql = "select * from comments left join users on author_id=user_id where post_id="+postID;
+			ResultSet ret = m_Mysql.Query(sql);
+			ret.last();
+			int size = ret.getRow();
+			ret.beforeFirst();
+			Comment [] comments = new Comment[size];
+			
+			int index=0;
+			while(ret.next())
+			{
+				comments[index] = new Comment();
+				int comId = ret.getInt("com_id");
+				String content = ret.getString("content");
+				long createTime = ret.getLong("create_time");
+				int authorId = ret.getInt("author_id");
+				String authorName = ret.getString("username");
+				
+				comments[index].setComID(comId);
+				comments[index].setContent(content);
+				comments[index].setPostID(postID);
+				comments[index].setAuthorID(authorId);
+				comments[index].setCreateTime(createTime);
+				comments[index].setAuthorName(authorName);
+				index++;
+			}
+			m_Mysql.closeConnection();
+			return comments;
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			throw new Exception(e);
+		}
 	}
 	
 	/**
@@ -111,9 +146,25 @@ public class Comment {
 	 * @param authorID 用户 ID
 	 * @param content 评论内容
 	 * @return
+	 * @throws Exception 
 	 */
-	public boolean createNewComment(int postID, int authorID, String content){
-		
+	public boolean createNewComment(int postID, int authorID, String content) throws Exception
+	{
+		MySQL m_Mysql = new MySQL();
+		try
+		{
+			m_Mysql.ConnectToMySQL();
+			long createTime = new Date().getTime()/1000;
+			String sql = "insert into comments(post_id,author_id,content,create_time)values("
+					+postID+","+authorID+",'"+content+"',"+createTime+")";
+			m_Mysql.Update(sql);
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		m_Mysql.closeConnection();
 		return true;
 	}
 

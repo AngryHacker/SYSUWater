@@ -287,8 +287,9 @@ public class Post {
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean createNewPost(int pid, String title, String content, int authorID) throws Exception
+	public int createNewPost(int pid, String title, String content, int authorID) throws Exception
 	{
+		int res = -1;
 		MySQL m_Mysql = new MySQL();
 		try
 		{
@@ -297,15 +298,23 @@ public class Post {
 			String sql = "insert into post(title,content,create_time,author_id,p_id) values('"
 					+title+"','"+content+"',"+createTime+","+authorID+","+pid+")";
 			int cnt = m_Mysql.Update(sql);
-			if( cnt <= 0 )
-				return false;
+			if( cnt > 0 )
+			{
+				sql = "select max(post_id) as id from post";
+				ResultSet ret = m_Mysql.Query(sql);
+				if( ret.next() )
+				{
+					res = ret.getInt("id");
+				}
+				ret.close();
+			}
 		}
 		catch( Exception e )
 		{
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		return true;
+		return res;
 	}
 	
 	/**
@@ -358,20 +367,42 @@ public class Post {
 	 * 对应函数先在  main中测试
 	 * @param args
 	 */
-	public static void main(String[] args){
-		
-		Post postTmp = new Post();
+	public static void main(String[] args)
+	{	
 		/*
 		try
 		{
-			boolean res = postTmp.deletePost(2, 2);
+			Comment [] comments = new Comment().getCommentsByPostID(1);
+			for( int i = 0; i < comments.length; i++ )
+			{
+				System.out.println("com_id: "+comments[i].getComID()+" comtent: "+comments[i].getContent()+
+						" create_time: " + comments[i].getCreateTime()+" author_id: "+comments[i].getAuthorID()
+						+" author_name: "+comments[i].getAuthorName()+" post_id: " + comments[i].getPostID());
+			}
+		}*/
+		try
+		{
+			Comment comment = new Comment();
+			boolean res = comment.createNewComment(1, 2, "test_insert");
 			System.out.println(res);
 		}
 		catch( Exception e )
 		{
 			System.out.println(e);
 		}
-		*/
+		
+		Post postTmp = new Post();
+		
+		try
+		{
+			int res = postTmp.createNewPost(1, "title", "test_content", 2);
+			System.out.println(res);
+		}
+		catch( Exception e )
+		{
+			System.out.println(e);
+		}
+		
 		/*
 		try
 		{
@@ -384,7 +415,7 @@ public class Post {
 						" visit: " + posts[i].getVisit() + " comment_number: " + posts[i].getCommentNum());
 			}
 		}
-		*/
+		
 		try
 		{
 			Post post = postTmp.getPostByID(8);
@@ -397,7 +428,7 @@ public class Post {
 		{
 			System.out.println(e);
 		}
-		
+		*/
 		/*
 		User m_User = new User();
 		try
