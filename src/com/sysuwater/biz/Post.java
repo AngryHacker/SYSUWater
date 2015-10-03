@@ -2,8 +2,6 @@ package com.sysuwater.biz;
 
 import com.sysuwater.common.*;
 import java.sql.*;
-import java.util.*;
-import java.util.Date;
 
 import com.sysuwater.biz.User.LoginInfo;
 
@@ -54,10 +52,6 @@ public class Post {
 	 */
 	private int visit;
 	
-	/**
-	 * 评论数
-	 */
-	private int commentNum;
 
 	/**
 	 * 以下为对应 getter/setter
@@ -127,16 +121,7 @@ public class Post {
 		this.visit = visit;
 	}
 
-	public int getCommentNum()
-	{
-		return commentNum;
-	}
-	
-	public void setCommentNum( int commentNum )
-	{
-		this.commentNum = commentNum;
-	}
-	
+
 	/**
 	 * 取得帖子列表，返回 POST 数组
 	 * 数据域除了 content 其他都要
@@ -149,7 +134,10 @@ public class Post {
 	public Post[] getPostList(int pid)
 	{	
 		Post[] post = new Post[2];
+<<<<<<< HEAD
 		post[0] = new Post();
+=======
+>>>>>>> parent of 70838bc... Post鎺ュ彛
 		post[0].authorID = 1;
 		post[0].authorName = "user1";
 		post[0].createTime = 12345678;
@@ -157,7 +145,10 @@ public class Post {
 		post[0].postID = 1;
 		post[0].title = "first post";
 		
+<<<<<<< HEAD
 		post[1] = new Post();
+=======
+>>>>>>> parent of 70838bc... Post鎺ュ彛
 		post[1].authorID = 2;
 		post[1].authorName = "user2";
 		post[1].createTime = 12345678;
@@ -175,9 +166,8 @@ public class Post {
 		try
 		{
 			m_Mysql.ConnectToMySQL();
-			String sql = "select *, count(comments.post_id) as commentNum from post left join "
-					+ "users on author_id = user_id left join comments on post.post_id=comments.post_id "
-					+ "where p_id="+pid+" and is_delete=0 group by post.post_id";
+			String sql = "select * from post left join users on post.author_id = users.user_id where p_id="+pid
+					+" and is_delete=0";
 			ResultSet ret = m_Mysql.Query(sql);
 			ret.last();
 			int size = ret.getRow();
@@ -196,7 +186,6 @@ public class Post {
 				long createTime = ret.getLong("create_time");
 				int authorId = ret.getInt("author_id");
 				String authodName = ret.getString("username");
-				int commentNum = ret.getInt("commentNum");
 				
 				posts[index].setAuthorID(authorId);
 				posts[index].setAuthorName(authodName);
@@ -205,16 +194,8 @@ public class Post {
 				posts[index].setPid(pid);
 				posts[index].setTitle(title);
 				posts[index].setVisit(visit);
-				posts[index].setCommentNum(commentNum);
 				index++;
 			}
-			for( int i = 0; i < posts.length; i++ )
-			{
-				int newVisit = posts[i].getVisit()+1;
-				sql = "update post set visit="+newVisit+" where post_id="+posts[i].getPostID();
-				m_Mysql.Update(sql);
-			}
-			m_Mysql.closeConnection();
 			return posts;
 		}
 		catch( Exception e )
@@ -231,51 +212,17 @@ public class Post {
 	 * @param postID 帖子 ID
 	 * @return
 	 */
-	public Post getPostByID( int postID ) throws Exception
-	{
+	public Post getPostByID(int postID){
 		Post post = new Post();
-		MySQL m_Mysql = new MySQL();
-		try
-		{
-			m_Mysql.ConnectToMySQL();
-			String sql = "select *, count(comments.post_id) as commentNum from post left join "
-					+ "users on author_id = user_id left join comments on post.post_id=comments.post_id "
-					+ "where post.post_id="+postID+" and is_delete=0 group by post.post_id";
-			ResultSet ret = m_Mysql.Query(sql);
-			if( ret.next() )
-			{
-				int pid= ret.getInt("p_id");
-				String title = ret.getString("title");
-				int visit = ret.getInt("visit");
-				long createTime = ret.getLong("create_time");
-				int authorId = ret.getInt("author_id");
-				String authodName = ret.getString("username");
-				int commentNum = ret.getInt("commentNum");
-				
-				post.setAuthorID(authorId);
-				post.setAuthorName(authodName);
-				post.setCreateTime(createTime);
-				post.setPostID(postID);
-				post.setPid(pid);
-				post.setTitle(title);
-				post.setVisit(visit);
-				post.setCommentNum(commentNum);
-			}
-			else
-			{
-				throw new Exception("无该Post ID！");
-			}
-			int newVisit = post.getVisit()+1;
-			sql = "update post set visit="+newVisit+" where post_id="+post.getPostID();
-			m_Mysql.Update(sql);
-			m_Mysql.closeConnection();
-			return post;
-		}
-		catch( Exception e )
-		{
-			e.printStackTrace();
-			throw new Exception(e);
-		}
+		post.authorID = 1;
+		post.authorName = "user1";
+		post.createTime = 12345678;
+		post.pid = 1;
+		post.postID = 1;
+		post.title = "first post";
+		post.content = "just a test file";
+		
+		return post;
 	}
 	
 	/**
@@ -285,26 +232,8 @@ public class Post {
 	 * @param content 内容
 	 * @param authorID 用户
 	 * @return
-	 * @throws Exception 
 	 */
-	public boolean createNewPost(int pid, String title, String content, int authorID) throws Exception
-	{
-		MySQL m_Mysql = new MySQL();
-		try
-		{
-			m_Mysql.ConnectToMySQL();
-			long createTime = new Date().getTime()/1000;
-			String sql = "insert into post(title,content,create_time,author_id,p_id) values('"
-					+title+"','"+content+"',"+createTime+","+authorID+","+pid+")";
-			int cnt = m_Mysql.Update(sql);
-			if( cnt <= 0 )
-				return false;
-		}
-		catch( Exception e )
-		{
-			e.printStackTrace();
-			throw new Exception(e);
-		}
+	public boolean createrNewPost(int pid, String title, String content, int authorID){
 		return true;
 	}
 	
@@ -315,42 +244,8 @@ public class Post {
 	 * @param postID 帖子 ID
 	 * @param authorID 操作用户 ID
 	 * @return
-	 * @throws Exception 
 	 */
-	public boolean deletePost(int postID, int authorID) throws Exception
-	{
-		MySQL m_Mysql = new MySQL();
-		try
-		{
-			m_Mysql.ConnectToMySQL();
-			String sql = "select is_admin from users where user_id="+authorID;
-			ResultSet ret = m_Mysql.Query(sql);
-			int isAdmin = 0;
-			if( ret.next() )
-			{
-				isAdmin = ret.getInt("is_admin");
-			}
-			else
-			{
-				throw new Exception("查无该author ID");
-			}
-			if( 1 == isAdmin )
-			{
-				sql = "update post set is_delete=1 where post_id="+postID;
-				int cnt = m_Mysql.Update(sql);
-				if( cnt <= 0 )
-					return false;
-			}
-			else
-			{
-				throw new Exception("该用户不是管理员！");
-			}
-		}
-		catch( Exception e )
-		{
-			e.printStackTrace();
-			throw new Exception(e);
-		}
+	public boolean deletePost(int postID, int authorID){
 		return true;
 	}
 	
@@ -359,45 +254,21 @@ public class Post {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		
-		Post postTmp = new Post();
-		/*
+		Post post = new Post();
 		try
 		{
-			boolean res = postTmp.deletePost(2, 2);
-			System.out.println(res);
-		}
-		catch( Exception e )
-		{
-			System.out.println(e);
-		}
-		*/
-		/*
-		try
-		{
-			Post [] posts = postTmp.getPostList(1);
+			Post[] posts = post.getPostListTmp(1);
 			for( int i = 0; i < posts.length; i ++ )
 			{
 				System.out.println("postId: "+posts[i].getPostID()+" pid: "+posts[i].getPid()+
 						" authorId: "+posts[i].getAuthorID()+" authorName: "+posts[i].getAuthorName() + " title:"
-						+ posts[i].getTitle() + " createTime: "+posts[i].getCreateTime() + 
-						" visit: " + posts[i].getVisit() + " comment_number: " + posts[i].getCommentNum());
+						+ posts[i].getTitle() + " createTime: "+posts[i].getCreateTime() + " visit: " + posts[i].getVisit());
 			}
-		}
-		*/
-		try
-		{
-			Post post = postTmp.getPostByID(8);
-			System.out.println("postId: "+post.getPostID()+" pid: "+post.getPid()+
-					" authorId: "+post.getAuthorID()+" authorName: "+post.getAuthorName() + " title:"
-					+ post.getTitle() + " createTime: "+post.getCreateTime() + 
-					" visit: " + post.getVisit() + " comment_number: " + post.getCommentNum());
 		}
 		catch( Exception e )
 		{
 			System.out.println(e);
 		}
-		
 		/*
 		User m_User = new User();
 		try
