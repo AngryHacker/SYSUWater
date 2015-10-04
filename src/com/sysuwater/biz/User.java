@@ -230,11 +230,7 @@ public class User
 	 * @param newUser
 	 * @return
 	 */
-	public Integer register( User newUser )
-	{		
-		return 1;
-	}
-	public Integer registerTmp( User newUser ) throws Exception
+	public Integer register( User newUser ) throws Exception
 	{
 		int res = -1;
 		/**
@@ -292,20 +288,8 @@ public class User
 	 * 
 	 * @param userID
 	 * @return
-	 */
-	public User getUserInfo(int userID){
-		User user = new User();
-		user.email = "2436@qq.com";
-		user.isAdmin = true;
-		user.userID = 1;
-		user.loginTime = 12345678;
-		user.sex = true;
-		user.signature = "hehe";
-		user.username = "ljc";
-		return user;
-	}
-	
-	public User getUserInfoTmp( int userID ) throws Exception
+	 */	
+	public User getUserInfo( int userID ) throws Exception
 	{
 		User m_User = new User();
 		MySQL m_Mysql = new MySQL();
@@ -354,10 +338,23 @@ public class User
 	 * @param type
 	 * @param value
 	 * @return
+	 * @throws Exception 
 	 */
-	public Boolean updateInfo( int userID, String type, String value )
+	public Boolean updateInfo( int userID, String type, String value ) throws Exception
 	{
-		
+		MySQL m_Mysql = new MySQL();
+		try
+		{
+			m_Mysql.ConnectToMySQL();
+			String sql = "update users set "+type+"='"+value+"' where user_id="+userID;
+			m_Mysql.Update(sql);
+			m_Mysql.closeConnection();
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			throw new Exception(e);
+		}
 		return true;
 	}
 	
