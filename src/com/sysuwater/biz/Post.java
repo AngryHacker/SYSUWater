@@ -463,7 +463,7 @@ public class Post {
 			System.out.println(e);
 		}
 		*/
-		
+		/*
 		Post postTmp = new Post();
 		try
 		{
@@ -475,6 +475,12 @@ public class Post {
 						+ posts[i].getTitle() + " createTime: "+posts[i].getCreateTime() + 
 						" visit: " + posts[i].getVisit() + " comment_number: " + posts[i].getCommentNum());
 			}
+		}
+		*/
+		User newUser = new User();
+		try
+		{
+			newUser.updateInfo(2, "nickname", "newNickname");
 		}
 		catch( Exception e )
 		{
