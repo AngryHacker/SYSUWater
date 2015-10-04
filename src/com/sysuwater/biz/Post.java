@@ -326,7 +326,7 @@ public class Post {
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean deletePost(int postID, int authorID) throws Exception
+	public static boolean deletePost(int postID, int authorID) throws Exception
 	{
 		MySQL m_Mysql = new MySQL();
 		try

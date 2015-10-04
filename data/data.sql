@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.6.26, for Win32 (x86)
+﻿-- MySQL dump 10.13  Distrib 5.6.26, for Win32 (x86)
 --
 -- Host: localhost    Database: sysuwater
 -- ------------------------------------------------------

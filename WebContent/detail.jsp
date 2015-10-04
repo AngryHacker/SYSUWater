@@ -15,6 +15,9 @@
 	else
 		is_login = true;
 	
+	Boolean is_admin = (Boolean)session.getAttribute("isAdmin");
+	if(is_admin == null) is_admin = false;
+	
 	// 获得所有版块
 	Plate[] plates = null;
 	Integer pid = null;
@@ -38,6 +41,14 @@
 		}
 		postID = Integer.valueOf(postIdString);
 		
+		String r = request.getParameter("r");
+		if("delete".equals(r) && is_admin){
+			boolean isSuccess = Post.deletePost(postID, Integer.parseInt(uid));
+			if(isSuccess){
+				response.sendRedirect("post.jsp?p=" + pid);
+				return;
+			}
+		}
 		post = Post.getPostByID(postID);
 		
 		comments = Comment.getCommentsByPostID(postID);
@@ -83,7 +94,7 @@
 				<div class="tie-con">
 					<div class="tie-con-hd">
 						<div class="tie-con-hd-panel">
-							<a href=""><%=post.getAuthorName()%></a>
+							<a href="user.jsp?id=<%=post.getAuthorID()%>"><%=post.getAuthorName()%></a>
 							<span class="time" id="floor-$item.floor">楼主 &nbsp;&nbsp; <%=Time.convertFromIntToString(post.getCreateTime(),"yyyy-MM-dd HH:mm:ss")%></span>
 							<span class="time">阅读：<%=post.getVisit()%></span>
 						</div>
@@ -95,7 +106,9 @@
                		<div class="tie-con-manange">
                			<div class="tie-con-manange-panel">
                         	<a href="#editor">回复本帖</a>
-                        	<a href="delete.jsp">删除帖子</a>
+                        	<% if(is_admin){ %>
+                        	<a href="detail.jsp?r=delete&p=<%=pid%>&id=<%=postID %>">删除帖子</a>
+                        	<% } %>
                     	</div>
                		</div>
 				</div>
@@ -108,7 +121,7 @@
 				<div class="tie-con">
 					<div class="tie-con-hd tie-con-hd-sub">
 						<div class="tie-con-hd-panel tie-con-hd-panel-sub">
-							<a href=""><%=comments[i].getAuthorName()%></a>
+							<a href="user.jsp?id=<%=comments[i].getAuthorID()%>"><%=comments[i].getAuthorName()%></a>
 							<span class="time" id="floor-$item.floor"><%out.print(i+2);%>楼 &nbsp;&nbsp; <%=Time.convertFromIntToString(comments[i].getCreateTime(),"yyyy-MM-dd HH:mm:ss")%></span>
 						</div>
 					</div>

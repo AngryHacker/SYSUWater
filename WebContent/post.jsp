@@ -106,7 +106,7 @@
 	        			    </div>
 	        			</div>
 	        			<div class="board-list-reply">
-	        				<a target="_blank" href="">去评论</a>
+	        				<a target="_blank" href="detail.jsp?p=<%=pid%>&id=<%=posts[i].getPostID()%>#editor">去评论</a>
 	        			</div>
 	        		</div>
 	        	</div>
