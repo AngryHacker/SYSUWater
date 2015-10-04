@@ -346,6 +346,10 @@ public class User
 		try
 		{
 			m_Mysql.ConnectToMySQL();
+			if( 0 == type.compareTo("password") )
+			{
+				value =  MD5Util.String2MD5( value );
+			}
 			String sql = "update users set "+type+"='"+value+"' where user_id="+userID;
 			m_Mysql.Update(sql);
 			m_Mysql.closeConnection();
