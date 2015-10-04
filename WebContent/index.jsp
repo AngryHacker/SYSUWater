@@ -32,7 +32,7 @@
 		<a href="post.jsp?p=<%=plate.getPid()%>"><%=plate.getPname()%></a>
 		<% }} %>
 		<% if(is_login){ %>
-		<a href="" class="fr personal" >个人中心</a>
+		<a href="user.jsp" class="fr personal" >个人中心</a>
 		<% }else{ %>
 		<a href="login.jsp" class="fr personal" >登录</a>
 		<a href="register.jsp" class="fr personal" >注册</a>

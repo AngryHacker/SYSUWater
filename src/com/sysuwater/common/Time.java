@@ -1,5 +1,8 @@
 package com.sysuwater.common;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Time {
 	
 	/**
@@ -7,8 +10,9 @@ public class Time {
 	 * @param time
 	 * @return
 	 */
-	public static String convertFromIntToString(int time){
-		return "2015-03-12 12:34";
+	public static String convertFromIntToString(long time, String format){
+		SimpleDateFormat sdf = new SimpleDateFormat(format);  
+        return sdf.format(new Date(time*1000)); 
 	}
 	
 	/**

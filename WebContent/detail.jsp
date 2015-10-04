@@ -1,3 +1,5 @@
+<%@page import="com.sysuwater.common.Time"%>
+<%@page import="com.sysuwater.biz.Post"%>
 <%@page import="com.sysuwater.biz.Plate"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -7,11 +9,14 @@
 	Boolean is_login = false;
 	if(uid == null)
 		response.sendRedirect("login.jsp");
+	else
+		is_login = true;
 	
 	// 获得所有版块
 	Plate[] plates = null;
 	Integer pid = null;
 	Integer postID = null;
+	Post post = null;
 	try{
 		plates = Plate.getPlateList();
 		String p = request.getParameter("p");
@@ -21,10 +26,14 @@
 		String postIdString = request.getParameter("id");
 		if(postIdString == null) response.sendRedirect("post.jsp?p="+pid);
 		postID = Integer.valueOf(postIdString);
+		
+		post = Post.getPostByID(postID);
+		
 	}catch(Exception e){
 		// log
-		response.sendRedirect("index.jsp");
 	}
+	
+	if(post == null) response.sendRedirect("index.jsp");
 	
 %>
 
@@ -48,7 +57,7 @@
 		<a href="post.jsp?p=<%=plate.getPid()%>"><%=plate.getPname()%></a>
 		<% }}} %>
 		<% if(is_login){ %>
-		<a href="" class="fr personal" >个人中心</a>
+		<a href="user.jsp" class="fr personal" >个人中心</a>
 		<% }else{ %>
 		<a href="login.jsp" class="fr personal" >登录</a>
 		<a href="register.jsp" class="fr personal" >注册</a>
@@ -61,17 +70,14 @@
 				<div class="tie-con">
 					<div class="tie-con-hd">
 						<div class="tie-con-hd-panel">
-							<a href="">踏星楼主</a>
-							<span class="time" id="floor-$item.floor">楼主 &nbsp;&nbsp; 2015-10-01 20:47:03</span>
-							<span class="time">阅读：1502</span>
+							<a href=""><%=post.getAuthorName()%></a>
+							<span class="time" id="floor-$item.floor">楼主 &nbsp;&nbsp; <%=Time.convertFromIntToString(post.getCreateTime(),"yyyy-MM-dd HH:mm:ss")%></span>
+							<span class="time">阅读：<%=post.getVisit()%></span>
 						</div>
-						<h2 class="tie-con-hd-title js-tietitle" style="color:#444;">政治要赔上终生的精力。</h2>
+						<h2 class="tie-con-hd-title js-tietitle" style="color:#444;"><%=post.getTitle()%></h2>
 					</div>
 					<div class="tie-con-bd clearfix">
-                    	<div class="tie-content">
-                        这句话是我小时候爸爸跟我说的。也就是说一个人玩政治作为理想。想要做出成绩要付上一生。道路漫漫长。政治其实就是玩你欺我诈。目的就是利益和地位。为了利益和地位不惜一切耍手段。美国为了保持世界大哥的位置不惜讲假话做假证据发动战争。中东不听话就是打。枪杆子里出政权。亚洲就培养经济实力强的日本牵制着中国。不费兵力来解决中国人的威胁。这也是兵子孙发的相互牵制共谱和谐利益。中国有日本这个强大的军事国来制服着。美国就少了烦恼。今天有网搏搏出美国培训日本特种部队海陆空的军事的练习。
-  所以玩政治不是一般人能看懂读懂的。政治是残忍的。人民是善良的。但任何的政治格斗受伤害的永远是人民的利益和生存问题。政治家们可管不了这么多。作为政治家得铁石心肠。所以我爸爸说 
-  						</div>
+                    	<div class="tie-content"><%=post.getContent()%></div>
                		</div>
                		<div class="tie-con-manange">
                			<div class="tie-con-manange-panel">

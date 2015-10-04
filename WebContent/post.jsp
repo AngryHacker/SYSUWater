@@ -1,5 +1,6 @@
 <%@page import="com.sysuwater.biz.Post"%>
 <%@page import="com.sysuwater.biz.Plate"%>
+<%@page import="com.sysuwater.common.Time"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%
@@ -7,6 +8,7 @@
 	String uid = (String)session.getAttribute("uid");
 	Boolean is_login = false;
 	if(uid != null) is_login = true;
+	
 	
 	// 获得所有版块
 	Plate[] plates = null;
@@ -23,7 +25,7 @@
 		if(p == null) p = "1";
 		pid = Integer.valueOf(p);
 		Post post = new Post();
-		posts = post.getPostList(pid);
+		posts = post.getPostListTmp(pid);
 	}catch(Exception e){
 		// log
 		e.printStackTrace();
@@ -50,7 +52,7 @@
 		<a href="post.jsp?p=<%=plate.getPid()%>"><%=plate.getPname()%></a>
 		<% }}} %>
 		<% if(is_login){ %>
-		<a href="" class="fr personal" >个人中心</a>
+		<a href="user.jsp" class="fr personal" >个人中心</a>
 		<% }else{ %>
 		<a href="login.jsp" class="fr personal" >登录</a>
 		<a href="register.jsp" class="fr personal" >注册</a>
@@ -153,11 +155,11 @@
                     <div class="right fr">
                     	<div class="board-list-write">
                     		<a target="_blank" href="user.jsp?id=<%=posts[i].getAuthorID()%>"><%=posts[i].getAuthorName()%></a>
-                    		<span class="date">10-02 00:20</span>
+                    		<span class="date"><%=Time.convertFromIntToString(posts[i].getCreateTime(), "MM-dd HH:mm")%></span>
                     	</div>
                     	<div class="board-list-count">
                     		<div class="board-list-count-inner">
-	        			    	<span>658</span>/15
+	        			    	<span><%=posts[i].getVisit()%></span>/<%=posts[i].getCommentNum() %>
 	        			    </div>
 	        			</div>
 	        			<div class="board-list-reply">

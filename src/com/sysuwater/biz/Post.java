@@ -1,11 +1,9 @@
 package com.sysuwater.biz;
 
-import com.sysuwater.common.*;
-import java.sql.*;
-import java.util.*;
+import java.sql.ResultSet;
 import java.util.Date;
 
-import com.sysuwater.biz.User.LoginInfo;
+import com.sysuwater.common.MySQL;
 
 /**
  * Ьћзг
@@ -195,7 +193,7 @@ public class Post {
 				int visit = ret.getInt("visit");
 				long createTime = ret.getLong("create_time");
 				int authorId = ret.getInt("author_id");
-				String authodName = ret.getString("username");
+				String authodName = ret.getString("nickname");
 				int commentNum = ret.getInt("commentNum");
 				
 				posts[index].setAuthorID(authorId);
@@ -231,7 +229,7 @@ public class Post {
 	 * @param postID Ьћзг ID
 	 * @return
 	 */
-	public Post getPostByID( int postID ) throws Exception
+	public static Post getPostByID( int postID ) throws Exception
 	{
 		Post post = new Post();
 		MySQL m_Mysql = new MySQL();
@@ -246,10 +244,11 @@ public class Post {
 			{
 				int pid= ret.getInt("p_id");
 				String title = ret.getString("title");
+				String content = ret.getString("content");
 				int visit = ret.getInt("visit");
 				long createTime = ret.getLong("create_time");
 				int authorId = ret.getInt("author_id");
-				String authodName = ret.getString("username");
+				String authodName = ret.getString("nickname");
 				int commentNum = ret.getInt("commentNum");
 				
 				post.setAuthorID(authorId);
@@ -258,6 +257,7 @@ public class Post {
 				post.setPostID(postID);
 				post.setPid(pid);
 				post.setTitle(title);
+				post.setContent(content);
 				post.setVisit(visit);
 				post.setCommentNum(commentNum);
 			}

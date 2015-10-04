@@ -25,7 +25,7 @@
 			String username = request.getParameter("name");
 			String psw = request.getParameter("psw");
 			User user = new User();
-			LoginInfo res = user.login(username, psw);
+			LoginInfo res = user.loginTmp(username, psw);
 			if(!res.IsSuccess()){
 				throw new Exception("登录失败，请重试");
 			}

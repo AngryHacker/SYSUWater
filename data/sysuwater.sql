@@ -64,6 +64,8 @@ CREATE TABLE `comments`
 	primary key (`com_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='评论表';
 
+insert into users values(NULL, "root", 1, "江月宗主", "202CB962AC59075B964B07152D234B70", 1, "root@qq.com", "", 1443924019);
+
 insert into plate values(NULL, "校园社团", "校园社团");
 insert into plate values(NULL, "休闲娱乐", "休闲娱乐");
 insert into plate values(NULL, "电脑科技", "电脑科技");
