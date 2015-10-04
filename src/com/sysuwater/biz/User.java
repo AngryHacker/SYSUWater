@@ -289,7 +289,7 @@ public class User
 	 * @param userID
 	 * @return
 	 */	
-	public User getUserInfo( int userID ) throws Exception
+	public static User getUserInfo( int userID ) throws Exception
 	{
 		User m_User = new User();
 		MySQL m_Mysql = new MySQL();

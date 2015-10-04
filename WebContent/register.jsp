@@ -56,7 +56,7 @@
 			user.setNickname(nick);
 			user.setPassword(psw);
 			
-			int id = user.registerTmp(user);
+			int id = user.register(user);
 			if(id == -1){
 				throw new Exception("注册失败，请重试!");
 			}

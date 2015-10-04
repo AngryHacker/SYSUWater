@@ -76,63 +76,6 @@
     			</div>
 			</div>
 			<div class="board-list-bd" id="board-list-bd">
-				<div class="board-list-one even">
-	    			<div class="board-list-title">
-	    				<div class="board-list-title-box">
-	    					<div class="board-list-title-wrap">
-	    						<div class="board-list-title-inner">
-                        			<span class="article-title">
-                        				<a href="" class="black" target="_blank">
-                        				中大竟出现宇宙草！</a>
-                        			</span>
-                        		</div>
-                        	</div>
-                        </div>
-                    </div>
-                    <div class="right fr">
-                    	<div class="board-list-write">
-                    		<a target="_blank" href="">中大 Din</a>
-                    		<span class="date">10-02 00:20</span>
-                    	</div>
-                    	<div class="board-list-count">
-                    		<div class="board-list-count-inner">
-	        			    	<span>658</span>/15
-	        			    </div>
-	        			</div>
-	        			<div class="board-list-reply">
-	        				<a target="_blank" href="">去评论</a>
-	        			</div>
-	        		</div>
-	        	</div>
-	        	<div class="board-list-one odd">
-	    			<div class="board-list-title">
-	    				<div class="board-list-title-box">
-	    					<div class="board-list-title-wrap">
-	    						<div class="board-list-title-inner">
-                        			<span class="article-title">
-                        				<a href="" class="black" target="_blank">
-                        				世界冠军竟是中大体育老师</a>
-                        			</span>
-                        		</div>
-                        	</div>
-                        </div>
-                    </div>
-                    <div class="right fr">
-                    	<div class="board-list-write">
-                    		<a target="_blank" href="">中大 Bin</a>
-                    		<span class="date">10-02 00:20</span>
-                    	</div>
-                    	<div class="board-list-count">
-                    		<div class="board-list-count-inner">
-	        			    	<span>658</span>/15
-	        			    </div>
-	        			</div>
-	        			<div class="board-list-reply">
-	        				<a target="_blank" href="">去评论</a>
-	        			</div>
-	        		</div>
-	        	</div>
-	        	
 	        	<% if(posts != null){
 	        	   	for(int i = 0;i < posts.length;++i){
 	        	   		if(i%2 == 1){ %>
@@ -163,7 +106,7 @@
 	        			    </div>
 	        			</div>
 	        			<div class="board-list-reply">
-	        				<a target="_blank" href="">去评论</a>
+	        				<a target="_blank" href="detail.jsp?p=<%=pid%>&id=<%=posts[i].getPostID()%>#editor">去评论</a>
 	        			</div>
 	        		</div>
 	        	</div>
@@ -173,6 +116,12 @@
 		</div>
 		
 		<div class="right_block  fr">
+			<div class="board-write">
+				<div class="dd-window">
+            		<a class="top" href="newpost.jsp?p=<%=pid%>"><b>发 帖</b></a>
+	       		</div>
+	   		</div>
+	   		
 			<div class="hot">
 				<h2 class="tit01">
 					<a href="" class="tit01_s">热点</a>
