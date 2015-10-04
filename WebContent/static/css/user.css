@@ -1,0 +1,98 @@
+@CHARSET "UTF-8";
+
+body, input, textarea, select, button {
+  line-height: 1.7;
+  font-size: 13px;
+  padding: 0;
+  margin: 0;
+  color: #222;
+  word-wrap: break-word;
+  font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;
+}
+
+.zm-profile-section-wrap {
+  margin-top: 25px;
+  margin-bottom:25px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 #f2f4f5;
+}
+
+.zm-profile-section-head {
+  overflow: hidden;
+  padding: 7px 14px;
+  border-bottom: 1px solid #EEE;
+}
+
+.zm-profile-section-name {
+  float: left;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #666;
+}
+
+.zg-link-litblue-normal {
+  color: #698ebf;
+  font-weight: 400;
+}
+
+.zg-right {
+  float: right;
+}
+
+.zm-profile-section-list {
+  padding: 0 14px;
+}
+
+.zm-profile-module+.zm-profile-module {
+  border-top: 1px solid #eee;
+}
+
+.zm-profile-module {
+  position: relative;
+  padding: 24px 12px;
+}
+
+.zg-clear {
+  height: 1%;
+}
+
+.zm-profile-module h3 {
+  margin: -1px 0 0;
+  float: left;
+  width: 100px;
+  text-align: right;
+  color: #666;
+}
+
+h1, h2, h3, h4, h5 {
+  font-weight: 700;
+  font-size: 14px;
+  outline: 0;
+  margin: 0;
+}
+
+.zm-profile-module-desc {
+  margin-left: 145px;
+}
+
+.zm-profile-module-desc .zm-profile-details-items li:first-child {
+  margin-top: 0;
+}
+
+.zm-profile-module-desc .zm-profile-details-items li {
+  overflow: hidden;
+  margin: 20px 0 0;
+  padding: 0;
+  border: 1px solid #fff;
+}
+
+.zm-profile-details-item-detail {
+  margin: 0 0 0 45px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #666;
+  overflow: hidden;
+  font-weight: 500px;
+}
