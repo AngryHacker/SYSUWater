@@ -364,6 +364,63 @@ public class Post {
 	}
 	
 	/**
+	 * 获取评论数前N位的帖子
+	 * @param args
+	 * @throws Exception 
+	 */
+	public Post[] getTopPost( int topN ) throws Exception
+	{
+		MySQL m_Mysql = new MySQL();
+		try
+		{
+			m_Mysql.ConnectToMySQL();
+			String sql = "select *, count(comments.post_id) as commentNum from post left join "
+					+ "users on author_id = user_id left join comments on post.post_id=comments.post_id "
+					+ "where is_delete=0 group by post.post_id order by commentNum desc limit 0,"+topN;
+			ResultSet ret = m_Mysql.Query(sql);
+			ret.last();
+			int size = ret.getRow();
+			ret.beforeFirst();
+			Post [] posts = new Post[size];
+			int index = 0;
+			while( ret.next() )
+			{
+				posts[index] = new Post();
+				int postId= ret.getInt("post_id");
+				String title = ret.getString("title");
+				int visit = ret.getInt("visit");
+				long createTime = ret.getLong("create_time");
+				int authorId = ret.getInt("author_id");
+				String authodName = ret.getString("username");
+				int commentNum = ret.getInt("commentNum");
+				
+				posts[index].setAuthorID(authorId);
+				posts[index].setAuthorName(authodName);
+				posts[index].setCreateTime(createTime);
+				posts[index].setPostID(postId);
+				posts[index].setPid(pid);
+				posts[index].setTitle(title);
+				posts[index].setVisit(visit);
+				posts[index].setCommentNum(commentNum);
+				index++;
+			}
+			for( int i = 0; i < posts.length; i++ )
+			{
+				int newVisit = posts[i].getVisit()+1;
+				sql = "update post set visit="+newVisit+" where post_id="+posts[i].getPostID();
+				m_Mysql.Update(sql);
+			}
+			m_Mysql.closeConnection();
+			return posts;
+		}
+		catch( Exception e )
+		{
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+	}
+	
+	/**
 	 * 对应函数先在  main中测试
 	 * @param args
 	 */
@@ -379,7 +436,9 @@ public class Post {
 						" create_time: " + comments[i].getCreateTime()+" author_id: "+comments[i].getAuthorID()
 						+" author_name: "+comments[i].getAuthorName()+" post_id: " + comments[i].getPostID());
 			}
-		}*/
+		}
+		*/
+		/*
 		try
 		{
 			Comment comment = new Comment();
@@ -398,15 +457,17 @@ public class Post {
 			int res = postTmp.createNewPost(1, "title", "test_content", 2);
 			System.out.println(res);
 		}
+		
 		catch( Exception e )
 		{
 			System.out.println(e);
 		}
+		*/
 		
-		/*
+		Post postTmp = new Post();
 		try
 		{
-			Post [] posts = postTmp.getPostList(1);
+			Post [] posts = postTmp.getTopPost(3);
 			for( int i = 0; i < posts.length; i ++ )
 			{
 				System.out.println("postId: "+posts[i].getPostID()+" pid: "+posts[i].getPid()+
@@ -415,7 +476,12 @@ public class Post {
 						" visit: " + posts[i].getVisit() + " comment_number: " + posts[i].getCommentNum());
 			}
 		}
+		catch( Exception e )
+		{
+			System.out.println(e);
+		}
 		
+		/*
 		try
 		{
 			Post post = postTmp.getPostByID(8);
