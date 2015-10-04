@@ -393,6 +393,7 @@ public class Post {
 				int authorId = ret.getInt("author_id");
 				String authodName = ret.getString("username");
 				int commentNum = ret.getInt("commentNum");
+				int pId = ret.getInt("p_id");
 				
 				posts[index].setAuthorID(authorId);
 				posts[index].setAuthorName(authodName);
@@ -402,6 +403,7 @@ public class Post {
 				posts[index].setTitle(title);
 				posts[index].setVisit(visit);
 				posts[index].setCommentNum(commentNum);
+				posts[index].setPid(pId);
 				index++;
 			}
 			for( int i = 0; i < posts.length; i++ )
@@ -463,7 +465,7 @@ public class Post {
 			System.out.println(e);
 		}
 		*/
-		/*
+		
 		Post postTmp = new Post();
 		try
 		{
@@ -473,15 +475,16 @@ public class Post {
 				System.out.println("postId: "+posts[i].getPostID()+" pid: "+posts[i].getPid()+
 						" authorId: "+posts[i].getAuthorID()+" authorName: "+posts[i].getAuthorName() + " title:"
 						+ posts[i].getTitle() + " createTime: "+posts[i].getCreateTime() + 
-						" visit: " + posts[i].getVisit() + " comment_number: " + posts[i].getCommentNum());
+						" visit: " + posts[i].getVisit() + " comment_number: " + posts[i].getCommentNum()
+						+ " p_id: " + posts[i].getPid());
 			}
 		}
-		*/
+		/*
 		User newUser = new User();
 		try
 		{
 			newUser.updateInfo(2, "nickname", "newNickname");
-		}
+		}*/
 		catch( Exception e )
 		{
 			System.out.println(e);
