@@ -99,7 +99,7 @@ public class Comment {
 	 * @return
 	 * @throws Exception 
 	 */
-	public Comment[] getCommentsByPostID(int postID) throws Exception
+	public static Comment[] getCommentsByPostID(int postID) throws Exception
 	{
 		MySQL m_Mysql = new MySQL();
 		try
@@ -120,7 +120,7 @@ public class Comment {
 				String content = ret.getString("content");
 				long createTime = ret.getLong("create_time");
 				int authorId = ret.getInt("author_id");
-				String authorName = ret.getString("username");
+				String authorName = ret.getString("nickname");
 				
 				comments[index].setComID(comId);
 				comments[index].setContent(content);
@@ -148,7 +148,7 @@ public class Comment {
 	 * @return
 	 * @throws Exception 
 	 */
-	public boolean createNewComment(int postID, int authorID, String content) throws Exception
+	public static boolean createNewComment(int postID, int authorID, String content) throws Exception
 	{
 		MySQL m_Mysql = new MySQL();
 		try

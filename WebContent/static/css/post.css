@@ -215,3 +215,27 @@ a:visited {
   display: block;
   color: #888;
 }
+
+.board-write {
+  display: block;
+  cursor: pointer;
+  _display: inline;
+  width: 99px;
+  height: 35px;
+  line-height: 35px;
+  vertical-align: middle;
+  background: #b94736 url("http://img1.cache.netease.com/bbs/static/image/icon_write_new.jpg") 50% 50% no-repeat;
+  color: #fff;
+  font-size: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.board-write .dd-window .top {
+  color: #fff;
+  line-height: 35px;
+  text-align: center;
+  text-decoration: none;
+  display:block;
+  font-family: 宋体, serif;
+}
