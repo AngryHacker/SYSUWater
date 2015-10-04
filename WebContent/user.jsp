@@ -15,6 +15,13 @@
 		return;
 	}
 	
+	boolean is_me = true;
+	
+	if(request.getParameter("u") != null && request.getParameter("u") != uid){
+		uid = request.getParameter("u");
+		is_me = false;
+	}
+	
 	// logout
 	String r = request.getParameter("r");
 	if(r != null && "logout".equals(r)){
@@ -28,6 +35,13 @@
 	try{
 		plates = Plate.getPlateList();
 		me = User.getUserInfo(Integer.parseInt(uid));
+		if(me == null){
+			response.sendRedirect("index.jsp");
+			return;
+		}
+		if(me.getSignature() == null || me.getSignature().equals("") || me.getSignature().equals("null"))
+			me.setSignature("还没有留下任何签名哦~");
+		
 	}catch(Exception e){
 		// log
 	}
@@ -50,8 +64,12 @@
 			for(Plate plate:plates){%>
 		<a href="post.jsp?p=<%=plate.getPid()%>"><%=plate.getPname()%></a>
 		<% }} %>
+		<% if(is_me){ %>
 		<a href="user.jsp?r=logout" class="fr personal" >注销</a>
 		<a href="updatepsw.jsp" class="fr personal" >修改密码</a>
+		<% }else{ %>
+		<a href="user.jsp" class="fr personal" >个人中心</a>
+		<% } %>
 	</div>
 	
 	<div class="container clearfix">
@@ -60,7 +78,9 @@
 			<div class="zm-profile-section-wrap zm-profile-details-wrap">
 				<div class="zm-profile-section-head">
 					<span class="zm-profile-section-name"><%=me.getNickname()%> &nbsp;的详细资料</span>
+					<% if(is_me){ %>
 					<a class="zg-right zg-link-litblue-normal zm-profile-answer-page-return" href="updatesig.jsp">修改资料</a>
+					<% } %>
 				</div>
 				<div class="zm-profile-section-list zm-profile-details">
 				
@@ -92,7 +112,11 @@
 					</div>
 					
 					<div class="zm-profile-module zg-clear">
+						<% if(is_me){ %>
 						<h3><i class="zm-profile-icon zm-profile-icon-location"></i> <span>我的邮箱</span></h3>
+						<% }else{ %>
+						<h3><i class="zm-profile-icon zm-profile-icon-location"></i> <span>他的邮箱</span></h3>
+						<% } %>
 						<div class="zm-profile-module-desc">
 							<ul class="zm-profile-details-items">
 								<li><div class="zm-profile-details-item-detail"><%=me.getEmail()%></div></li>
@@ -101,7 +125,11 @@
 					</div>
 					
 					<div class="zm-profile-module zg-clear">
+						<% if(is_me){ %>
 						<h3><i class="zm-profile-icon zm-profile-icon-location"></i> <span>我的签名</span></h3>
+						<% }else{ %>
+						<h3><i class="zm-profile-icon zm-profile-icon-location"></i> <span>他的签名</span></h3>
+						<% } %>
 						<div class="zm-profile-module-desc">
 							<ul class="zm-profile-details-items">
 								<li><div class="zm-profile-details-item-detail"><%=me.getSignature()%></div></li>
