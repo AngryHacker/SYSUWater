@@ -1,8 +1,11 @@
 package com.sysuwater.biz;
 
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import com.sysuwater.common.*;
 import java.sql.ResultSet;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 用户
@@ -354,6 +357,27 @@ public class User
 		return true;
 	}
 	
+	public static boolean checkUserName(String userName) {
+		String regex = "^[a-z0-9_]{3,15}$";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(userName);
+		return m.matches();
+	}
+	
+	public static boolean checkPassword(String password) {
+		String regex = "^[a-z0-9_]{6,15}$";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(password);
+		return m.matches();
+	}
+	
+	public static boolean checkEmail(String email) {
+		String regex = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(email);
+		return m.matches();
+	}
+	
 	public class LoginInfo{
 		/**
 		 * 登陆是否成功
@@ -393,6 +417,20 @@ public class User
 		public void setIsAdmin(Boolean isAdmin) {
 			this.isAdmin = isAdmin;
 		}
+	}
+	
+	public static void main(String[] args){
+		System.out.println(checkUserName("123"));
+		System.out.println(checkUserName("123asd"));
+		System.out.println(checkUserName("123awe.."));
+		
+		System.out.println(checkPassword("12345"));
+		System.out.println(checkPassword("12345aw"));
+		System.out.println(checkPassword("12345...."));
+		
+		System.out.println(checkEmail("234"));
+		System.out.println(checkEmail("234@qq.com"));
+		System.out.println(checkEmail("234@mail.qq.com"));
 	}
 
 }

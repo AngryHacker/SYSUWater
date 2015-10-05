@@ -47,6 +47,18 @@
 				throw new Exception("两次输入密码不相同!");
 			}
 			
+			if(!User.checkUserName(username)){
+				throw new Exception("用户名格式错误");
+			}
+			
+			if(!User.checkPassword(psw)){
+				throw new Exception("密码格式错误");
+			}
+			
+			if(!User.checkEmail(email)){
+				throw new Exception("邮箱格式错误啦");
+			}
+			
 			User user = new User();
 			user.setUsername(username);
 			if(sex.equals("1")){
@@ -119,7 +131,7 @@
 							<div class="login_form">
 								<form id="loginform" name="loginform" action="register.jsp" method="post">
 									<div class="uinArea" id="uinArea">
-										<label class="input_tips" id="uin_tips" for="u" style="display: block;">用户名</label>
+										<label class="input_tips" id="uin_tips" for="u" style="display: block;">用户名，3 到 15 个数字字母或下划线哦</label>
 										<div class="inputOuter">
 											<input type="text" onfocus="displayNone('uin_tips');displayNone('error_tips');" onblur="changeTips(this, 'uin_tips');" class="inputstyle" id="u" name="name" value="" tabindex="1">
 										</div>
@@ -143,7 +155,7 @@
 										</div>
 									</div>
 									<div class="pwdArea" id="pwdArea">
-										<label class="input_tips" id="pwd_tips" for="p" style="display: block;">密码</label>
+										<label class="input_tips" id="pwd_tips" for="p" style="display: block;">密码，6 到 15 个数字字母或下划线哦</label>
 										<div class="inputOuter">
 											<input type="password" onfocus="displayNone('pwd_tips');displayNone('error_tips');" onblur="changeTips(this, 'pwd_tips');" class="inputstyle password" id="psw" name="psw" value="" maxlength="16" tabindex="2">
 										</div>
