@@ -1,0 +1,192 @@
+@CHARSET "UTF-8";
+
+.styleO {
+  overflow: hidden;
+  zoom: 1;
+  margin-top: 10px;
+}
+
+#container{
+	background:#FFF;
+}
+
+.styleO .tit {
+  position: relative;
+  height: 40px;
+  line-height: 40px;
+  font-family: '微软雅黑','黑体';
+  font-size: 18px;
+  zoom: 1;
+  background-position: 0 5px;
+  overflow: hidden;
+}
+
+.styleO .tit, .othersList .hd {
+  background: url(http://mat1.qq.com/blog/2012new/line.png) repeat-x;
+}
+
+.styleO .tit .more {
+  float: right;
+  display: inline;
+  background: #fff;
+  padding-left: 10px;
+  line-height: 40px;
+}	
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+.styleO .tit h3 {
+  height: 40px;
+  background-color: #fff;
+  font-weight: 100;
+  float: left;
+  padding: 0 10px;
+  font-size: 28px;
+  line-height: 40px;
+}
+
+.f30 {
+  color: #cf0303;
+}
+
+.styleO .tit .f00 {
+  margin-left: 5px;
+}
+.f00 {
+  color: #000;
+}
+
+.styleO .tit .f00 {
+  margin-left: 5px;
+}
+.iconDian {
+  background-position: -113px -279px;
+  padding-left: 20px;
+}
+
+.styleO .tit h3 a {
+  float: left;
+  display: inline;
+  width: 5px;
+  text-indent: -999em;
+  overflow: hidden;
+}
+
+.styleO .tbd {
+  overflow: hidden;
+  zoom: 1;
+  padding: 10px 0;
+}
+
+.art .chief {
+  float: left;
+  display: inline;
+  width: 1000px;
+}
+
+.art .main {
+  width: 412px;
+  float: left;
+  display: inline;
+}
+
+.main .picBoxOp{
+  border: 1px solid #ccc;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+img {
+  border: 0;
+  vertical-align: middle;
+}
+
+.art .main .picBoxOp i, .art .main .picBoxOp span {
+  width: 410px;
+}
+.picBoxOp i {
+  display: block;
+  height: 24px;
+  background: #000;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  z-index: 5;
+}
+
+.art .main .picBoxOp i, .art .main .picBoxOp span {
+  width: 410px;
+}
+
+.picBoxOp span{
+  text-decoration: none;
+  color: #fff;
+}
+
+.picBoxOp {
+  position: relative;
+  zoom: 1;
+}
+
+.picBoxOp span {
+  position: absolute;
+  display: block;
+  height: 24px;
+  line-height: 24px;
+  text-align: center;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
+}
+
+.art .sub {
+  float: right;
+  display: inline;
+  width: 500px;
+}
+
+.pb21h {
+  padding-bottom: 21px;
+}
+
+.bbld {
+  border-bottom: 1px dotted #e5e5e5;
+}
+
+.sub-list {
+  line-height: 28px;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+.sub-list li {
+  font-family: "\5B8B\4F53", serif;
+  padding-left: 11px;
+  background: url("http://img6.cache.netease.com/cnews/news2012/img/icons-sprites.png") no-repeat scroll 0 -137px transparent;
+  zoom: 1;
+}
+
+li {
+  list-style-type: none;
+}
+
+.nowrapbox .sub-list a.left, .nowrapbox .sub-list a.left:visited {
+  white-space: nowrap;
+  max-width: 365px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cDGray, .cDGray:visited, .cDGray a {
+  color: #727171;
+}

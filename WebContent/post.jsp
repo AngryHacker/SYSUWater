@@ -27,7 +27,7 @@
 		if(p == null) p = "1";
 		pid = Integer.valueOf(p);
 		Post post = new Post();
-		posts = post.getPostListTmp(pid);
+		posts = post.getPostList(pid);
 	}catch(Exception e){
 		// log
 		e.printStackTrace();

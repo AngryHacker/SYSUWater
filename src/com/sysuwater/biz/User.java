@@ -172,15 +172,7 @@ public class User
 	 * @param password √‹¬Î
 	 * @return
 	 */
-	public LoginInfo login(String username, String password){
-		LoginInfo res = new LoginInfo();
-		res.setIsAdmin(true);
-		res.setIsSuccess(true);
-		res.setUserID(1);
-		return res;
-	}
-	
-	public LoginInfo loginTmp( String username, String password ) throws Exception
+	public LoginInfo login( String username, String password ) throws Exception
 	{
 		LoginInfo res = new LoginInfo();
 		res.setIsSuccess(false);
