@@ -20,6 +20,7 @@
 	
 	// 获得所有版块
 	Plate[] plates = null;
+	Post[] hotPosts = null;
 	Integer pid = null;
 	Integer postID = null;
 	Post post = null;
@@ -27,6 +28,7 @@
 	
 	try{
 		plates = Plate.getPlateList();
+		hotPosts = Post.getTopPost(5);
 		String p = request.getParameter("p");
 		if(p == null){
 			response.sendRedirect("index.jsp");
@@ -160,41 +162,20 @@
 					<a href="" class="a_more fr">更多</a>
 				</h2>
 				<div class="hot_c clearfix" style="height: auto;">
-					<div class="hot_items clearfix">
-						<h3 class="tit02">
-							<a href="">中大竟出现宇宙草！</a>
-						</h3>
-						<p class="pmeta01 clearfix">
-							<span class="fl">
-								作者：<a href="">中大 Din</a>
-							</span>
-							<a href="">评论</a>
-						</p>
-            		</div>
-            		
+					<% if(hotPosts != null){
+            			for(Post tmpPost:hotPosts){%>
             		<div class="hot_items clearfix">
 						<h3 class="tit02">
-							<a href="">神盾局第三季开播，你猜到剧情了吗</a>
+							<a href="detail.jsp?p=<%=tmpPost.getPid()%>&id=<%=tmpPost.getPostID()%>"><%=tmpPost.getTitle()%></a>
 						</h3>
 						<p class="pmeta01 clearfix">
 							<span class="fl">
-								作者：<a href="">中大 Ain</a>
+								作者：<a href="user.jsp?u=<%=tmpPost.getAuthorID()%>"><%=tmpPost.getAuthorName()%></a>
 							</span>
 							<a href="">评论</a>
 						</p>
             		</div>
-            		
-            		<div class="hot_items clearfix">
-						<h3 class="tit02">
-							<a href="">2015国赛，评选身边猪一样的队友</a>
-						</h3>
-						<p class="pmeta01 clearfix">
-							<span class="fl">
-								作者：<a href="">中大 Bin</a>
-							</span>
-							<a href="">评论</a>
-						</p>
-            		</div>
+            		<% }} %>
 
 				</div>
 			</div>

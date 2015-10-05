@@ -368,7 +368,7 @@ public class Post {
 	 * @param args
 	 * @throws Exception 
 	 */
-	public Post[] getTopPost( int topN ) throws Exception
+	public static Post[] getTopPost( int topN ) throws Exception
 	{
 		MySQL m_Mysql = new MySQL();
 		try
@@ -391,7 +391,7 @@ public class Post {
 				int visit = ret.getInt("visit");
 				long createTime = ret.getLong("create_time");
 				int authorId = ret.getInt("author_id");
-				String authodName = ret.getString("username");
+				String authodName = ret.getString("nickname");
 				int commentNum = ret.getInt("commentNum");
 				int pId = ret.getInt("p_id");
 				
@@ -399,7 +399,7 @@ public class Post {
 				posts[index].setAuthorName(authodName);
 				posts[index].setCreateTime(createTime);
 				posts[index].setPostID(postId);
-				posts[index].setPid(pid);
+				posts[index].setPid(pId);
 				posts[index].setTitle(title);
 				posts[index].setVisit(visit);
 				posts[index].setCommentNum(commentNum);
