@@ -19,6 +19,10 @@
 		String content= request.getParameter("comment_content");
 		if(content == null) throw new Exception("评论内容不可为空");
 		
+		content = content.replaceAll(" ","&nbsp;");
+		content = content.replaceAll("\r\n","<br/>");
+		content = content.replaceAll("\n","<br/>");
+		
 		Boolean success = Comment.createNewComment(post_id, Integer.parseInt(uid), content);
 		if(!success) {
 			throw new Exception("评论失败");

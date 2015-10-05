@@ -121,7 +121,7 @@
 									<div class="uinArea" id="uinArea">
 										<label class="input_tips" id="uin_tips" for="u" style="display: block;">用户名</label>
 										<div class="inputOuter">
-											<input type="text" onclick="displayNone('uin_tips');displayNone('error_tips');" onblur="changeTips(this, 'uin_tips');" class="inputstyle" id="u" name="name" value="" tabindex="1">
+											<input type="text" onfocus="displayNone('uin_tips');displayNone('error_tips');" onblur="changeTips(this, 'uin_tips');" class="inputstyle" id="u" name="name" value="" tabindex="1">
 										</div>
 									</div>
 									<div id="sex_div" class="sex">
@@ -133,25 +133,25 @@
 									<div class="uinArea" id="nickArea">
 										<label class="input_tips" id="nick_tips" for="u" style="display: block;">昵称</label>
 										<div class="inputOuter">
-											<input type="text" onclick="displayNone('nick_tips');displayNone('error_tips');" onblur="changeTips(this, 'nick_tips');" class="inputstyle" id="u" name="nick" value="" tabindex="1">
+											<input type="text" onfocus="displayNone('nick_tips');displayNone('error_tips');" onblur="changeTips(this, 'nick_tips');" class="inputstyle" id="u" name="nick" value="" tabindex="1">
 										</div>
 									</div>
 									<div class="uinArea" id="mailArea">
 										<label class="input_tips" id="mail_tips" for="email" style="display: block;">邮箱</label>
 										<div class="inputOuter">
-											<input type="text" onclick="displayNone('mail_tips');displayNone('error_tips');" onblur="changeTips(this, 'mail_tips');" class="inputstyle" id="email" name="mail" value="" tabindex="1">
+											<input type="text" onfocus="displayNone('mail_tips');displayNone('error_tips');" onblur="changeTips(this, 'mail_tips');" class="inputstyle" id="email" name="mail" value="" tabindex="1">
 										</div>
 									</div>
 									<div class="pwdArea" id="pwdArea">
 										<label class="input_tips" id="pwd_tips" for="p" style="display: block;">密码</label>
 										<div class="inputOuter">
-											<input type="password" onclick="displayNone('pwd_tips');displayNone('error_tips');" onblur="changeTips(this, 'pwd_tips');" class="inputstyle password" id="psw" name="psw" value="" maxlength="16" tabindex="2">
+											<input type="password" onfocus="displayNone('pwd_tips');displayNone('error_tips');" onblur="changeTips(this, 'pwd_tips');" class="inputstyle password" id="psw" name="psw" value="" maxlength="16" tabindex="2">
 										</div>
 									</div>
 									<div class="pwdArea" id="pwd2Area">
 										<label class="input_tips" id="pwd2_tips" for="psw2" style="display: block;">再输一遍密码</label>
 										<div class="inputOuter">
-											<input type="password" onclick="displayNone('pwd2_tips');displayNone('error_tips');" onblur="changeTips(this, 'pwd2_tips');" class="inputstyle password" id="psw2" name="psw2" value="" maxlength="16" tabindex="2">
+											<input type="password" onfocus="displayNone('pwd2_tips');displayNone('error_tips');" onblur="changeTips(this, 'pwd2_tips');" class="inputstyle password" id="psw2" name="psw2" value="" maxlength="16" tabindex="2">
 										</div>
 									</div>
 									<div class="submit">

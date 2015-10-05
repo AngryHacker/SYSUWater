@@ -21,6 +21,11 @@
 				throw new Exception("不可为空！");
 			}
 			
+			// 换行符及空格修复
+			content = content.replaceAll(" ","&nbsp;");
+			content = content.replaceAll("\r\n","<br/>");
+			content = content.replaceAll("\n","<br/>");
+			
 			int pid = Integer.parseInt(p);
 			Post post = new Post();
 			int post_id = post.createNewPost(pid, title, content, Integer.parseInt(uid));
